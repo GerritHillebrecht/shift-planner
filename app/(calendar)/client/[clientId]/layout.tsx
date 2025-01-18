@@ -19,6 +19,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { ModeToggle } from "@/components/ui/theme-selector";
 
 import { getClientByUUID, getClients } from "@/lib/data/clients";
 import { createClient } from "@/lib/supabase/server";
@@ -53,7 +54,7 @@ export default async function Layout({ children, params }: LayoutProps) {
     <SidebarProvider defaultOpen={defaultOpen}>
       <AppSidebar user={user} clients={clients} activeClientId={clientId} />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+        <header className="flex justify-between pr-4 h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-x-2 px-4 print:hidden">
             <SidebarTrigger />
             <Separator orientation="vertical" className="mr-2 h-4" />
@@ -68,9 +69,7 @@ export default async function Layout({ children, params }: LayoutProps) {
                     <DropdownMenuContent align="start">
                       {clients.map((client) => (
                         <DropdownMenuItem key={client.id}>
-                          <BreadcrumbLink
-                            href={`/client/${client.id}`}
-                          >
+                          <BreadcrumbLink href={`/client/${client.id}`}>
                             {client.firstname} {client.lastname}
                           </BreadcrumbLink>
                         </DropdownMenuItem>
@@ -92,6 +91,7 @@ export default async function Layout({ children, params }: LayoutProps) {
               </BreadcrumbList>
             </Breadcrumb>
           </div>
+          <ModeToggle />
         </header>
         <main className="w-full px-6">{children}</main>
       </SidebarInset>

@@ -1,4 +1,6 @@
-import { ChevronUp, User2 } from "lucide-react";
+import { UserResponse } from "@supabase/supabase-js";
+import { ChevronUp, LogOut, User2 } from "lucide-react";
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,13 +8,16 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
-import { UserResponse } from "@supabase/supabase-js";
+import { createClient } from "@/lib/supabase/client";
+import { redirect } from "next/navigation";
 
 export function AppSidebarFooter({
   user,
 }: {
   user: UserResponse["data"]["user"];
 }) {
+  const supabase = createClient();
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -27,14 +32,17 @@ export function AppSidebarFooter({
             side="top"
             className="w-[--radix-popper-anchor-width]"
           >
-            <DropdownMenuItem>
+            {/* <DropdownMenuItem>
               <span>Account</span>
             </DropdownMenuItem>
             <DropdownMenuItem>
               <span>Billing</span>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
             <DropdownMenuItem>
-              <span>Sign out</span>
+              <Button onClick={() => supabase.auth.signOut().then(() => redirect("/"))} variant={"link"}>
+                <LogOut className="" />
+                Sign out
+              </Button>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

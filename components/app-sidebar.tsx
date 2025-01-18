@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, Plus, User as UserIcon } from "lucide-react";
+import { ChevronRight, Plus, Users as UsersIcon } from "lucide-react";
 
 import {
   Sidebar,
@@ -67,7 +67,7 @@ export function AppSidebar({ clients, activeClientId, user }: AppSidebarProps) {
                   <SidebarMenuItem>
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton tooltip={team.team_name}>
-                        <UserIcon />
+                        <UsersIcon />
                         <span>{team.team_name}</span>
                         <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                       </SidebarMenuButton>
@@ -77,7 +77,7 @@ export function AppSidebar({ clients, activeClientId, user }: AppSidebarProps) {
                         {team.employees?.map((teamMember) => (
                           <SidebarMenuSubItem key={teamMember.id}>
                             <SidebarMenuSubButton asChild>
-                              <a href={teamMember.id}>
+                              <a href={`/employee/${teamMember.id}`}>
                                 <span>
                                   {teamMember.firstname} {teamMember.lastname}
                                 </span>

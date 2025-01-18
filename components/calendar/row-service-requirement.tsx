@@ -114,12 +114,12 @@ export function RowServiceRequirement({
         className={cn(
           "h-6 border-l border-t flex items-center justify-center",
           active_day && !has_shift_in_day && "cursor-pointer",
-          !active_day && "bg-gray-100"
+          !active_day && "bg-muted",
         )}
       >
         {date_in_shifts && (
           <img
-            className="h-4 w-4"
+            className="h-4 w-4 dark:invert"
             src={serviceRequirement.icon}
             alt={serviceRequirement.service_name}
           />
