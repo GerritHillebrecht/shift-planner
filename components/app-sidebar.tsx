@@ -27,12 +27,12 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "./ui/collapsible";
-import { User } from "@supabase/supabase-js";
+import { UserResponse } from "@supabase/supabase-js";
 
 interface AppSidebarProps {
   clients: Client[];
   activeClientId: string;
-  user: typeof User;
+  user: UserResponse["data"]["user"];
 }
 
 export function AppSidebar({ clients, activeClientId, user }: AppSidebarProps) {

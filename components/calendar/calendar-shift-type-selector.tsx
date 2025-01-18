@@ -3,7 +3,7 @@
 import { CalendarContext } from "@/context/calendar-context";
 import { ServiceRequirement } from "@/models/service-requirements";
 import { Moon, Sun } from "lucide-react";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,9 +20,9 @@ interface CalendarShiftTypeSelectorProps {
 export function CalendarShiftTypeSelector({
   serviceRequirements,
 }: CalendarShiftTypeSelectorProps) {
-  const [serviceRequirement, setServiceRequirement] =
-    useState<ServiceRequirement | null>(null);
-    
+  // const [serviceRequirement, setServiceRequirement] =
+  //   useState<ServiceRequirement | null>(null);
+
   const context = useContext(CalendarContext);
 
   if (!context) {
@@ -51,7 +51,7 @@ export function CalendarShiftTypeSelector({
         {serviceRequirements.map((serviceRequirement, index) => (
           <DropdownMenuItem
             key={serviceRequirement.service_name}
-            onClick={() => setServiceRequirement(serviceRequirement)}
+            // onClick={() => setServiceRequirement(serviceRequirement)}
             className="gap-2 p-2"
           >
             <div className="flex size-6 items-center justify-center rounded-sm border">

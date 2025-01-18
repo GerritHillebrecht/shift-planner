@@ -14,7 +14,7 @@ import {
   TooltipTrigger,
 } from "../ui/tooltip";
 
-require("dayjs/locale/de");
+import "dayjs/locale/de"
 
 export function RowServiceRequirement({
   currentMonth,

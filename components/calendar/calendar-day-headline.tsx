@@ -2,7 +2,8 @@ import { cn } from "@/lib/utils";
 import { ServiceRequirement } from "@/models/service-requirements";
 import { Shift } from "@/models/shift";
 import dayjs from "dayjs";
-require("dayjs/locale/de");
+
+import "dayjs/locale/de";
 
 interface CalendarDayHeadlineProps {
   currentMonth: Date;

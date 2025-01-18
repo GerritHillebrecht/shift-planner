@@ -6,15 +6,20 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
+import { UserResponse } from "@supabase/supabase-js";
 
-export function AppSidebarFooter({ user }: { user: any }) {
+export function AppSidebarFooter({
+  user,
+}: {
+  user: UserResponse["data"]["user"];
+}) {
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton tooltip={user.email}>
-              <User2 /> {user.email}
+            <SidebarMenuButton tooltip={user?.email}>
+              <User2 /> {user?.email}
               <ChevronUp className="ml-auto" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
