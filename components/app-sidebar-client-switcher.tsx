@@ -69,7 +69,7 @@ export function ClientSwitcher({
                 return 0;
               })
               .map((client, index) => (
-                <Link key={index} href={`/calendar/client/${client.id}`}>
+                <Link key={index} href={`/client/${client.id}`}>
                   <DropdownMenuItem
                     onClick={() => setActiveClient && setActiveClient(client)}
                     className="gap-2 p-2"

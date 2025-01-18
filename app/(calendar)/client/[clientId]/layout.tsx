@@ -20,8 +20,9 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-import { getClients } from "@/lib/data/clients";
+import { getClientByUUID, getClients } from "@/lib/data/clients";
 import { createClient } from "@/lib/supabase/server";
+import { get } from "http";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -36,22 +37,16 @@ export default async function Layout({ children, params }: LayoutProps) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
 
+  const { clientId } = await params;
+  const clients = await getClients();
+
   const supabase = await createClient();
 
   const {
     data: { user },
-    error: supabaseError,
   } = await supabase.auth.getUser();
 
-  if (supabaseError || !user) {
-    redirect("/auth/login");
-  }
-
-  const { clientId } = await params;
-
-  const clients = await getClients();
-
-  if (!clients.map((client) => client.id).includes(clientId)) {
+  if (!getClientByUUID(clientId)) {
     redirect("/");
   }
 
@@ -75,7 +70,7 @@ export default async function Layout({ children, params }: LayoutProps) {
                       {clients.map((client) => (
                         <DropdownMenuItem key={client.id}>
                           <BreadcrumbLink
-                            href={`/calendar/client/${client.id}`}
+                            href={`/client/${client.id}`}
                           >
                             {client.firstname} {client.lastname}
                           </BreadcrumbLink>
