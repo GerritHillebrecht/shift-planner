@@ -1,29 +1,4 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { ModeToggle } from "@/components/ui/theme-selector";
-import { getClientByUUID, getClients } from "@/lib/data/clients";
 import { createClient } from "@/lib/supabase/server";
-import { ChevronDown, ChevronRight } from "lucide-react";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function Layout({
