@@ -1,8 +1,13 @@
-"use client";
 import { LoginForm } from "@/components/login-form";
 import heroImage from "@/public/images/hero-bg-image-3.jpg";
-import { GalleryVerticalEnd } from "lucide-react";
 import Image from "next/image";
+
+import { DM_Serif_Display } from "next/font/google";
+
+const dmSerifDisplay = DM_Serif_Display({
+  subsets: ["latin"],
+  weight: ["400"],
+});
 
 export default function LoginPage() {
   return (
@@ -20,10 +25,11 @@ export default function LoginPage() {
             href="#"
             className="flex items-center gap-2 self-center font-medium"
           >
-            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
+            {/* <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <GalleryVerticalEnd className="size-4" />
-            </div>
-            Acme Inc.
+            </div> */}
+            {/* Acme Inc. */}
+            <span className={`font-bold text-black opacity-90 text-3xl ${dmSerifDisplay.className}`}>{process.env.APP_NAME}</span>
           </a>
 
           <LoginForm />

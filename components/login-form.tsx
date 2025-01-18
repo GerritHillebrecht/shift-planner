@@ -1,18 +1,17 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { login } from "@/app/auth/login/actions";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { login } from "@/app/auth/login/actions";
-import Script from "next/script";
+import { cn } from "@/lib/utils";
 
 export function LoginForm({
   className,
@@ -112,18 +111,6 @@ export function LoginForm({
         By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
         and <a href="#">Privacy Policy</a>.
       </div>
-      <Script src="https://accounts.google.com/gsi/client" async></Script>
-      <div
-        id="g_id_onload"
-        data-client_id="<client ID>"
-        data-context="signin"
-        data-ux_mode="popup"
-        data-callback="handleSignInWithGoogle"
-        data-nonce=""
-        data-auto_select="true"
-        data-itp_support="true"
-        data-use_fedcm_for_prompt="true"
-      ></div>
     </div>
   );
 }
