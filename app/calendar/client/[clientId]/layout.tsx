@@ -29,7 +29,7 @@ import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
-  params: { clientId: string };
+  params: Promise<{ clientId: string }>;
 }
 
 export default async function Layout({ children, params }: LayoutProps) {
@@ -47,7 +47,7 @@ export default async function Layout({ children, params }: LayoutProps) {
     redirect("/login");
   }
 
-  const { clientId } = params;
+  const { clientId } = await params;
 
   const clients = await getClients();
 
