@@ -1,12 +1,11 @@
 import { Calendar } from "@/components/calendar/calendar";
 import { getClientByUUID } from "@/lib/data/clients";
 
-type Props = {
+interface PageProps {
   params: Promise<{ clientId: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
+}
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: PageProps) {
   const { clientId } = await params;
   const { data: client } = await getClientByUUID(clientId);
 
@@ -15,11 +14,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default async function Page({
-  params,
-}: {
-  params: { clientId?: string };
-}) {
+export default async function Page({ params }: PageProps) {
   const { clientId } = await params;
 
   if (!clientId) {

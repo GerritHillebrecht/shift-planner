@@ -1,9 +1,7 @@
 "use client";
 
-import { CalendarContext } from "@/context/calendar-context";
 import { ServiceRequirement } from "@/models/service-requirements";
 import { Moon, Sun } from "lucide-react";
-import { useContext } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,12 +20,6 @@ export function CalendarShiftTypeSelector({
 }: CalendarShiftTypeSelectorProps) {
   // const [serviceRequirement, setServiceRequirement] =
   //   useState<ServiceRequirement | null>(null);
-
-  const context = useContext(CalendarContext);
-
-  if (!context) {
-    return null;
-  }
 
   return (
     <DropdownMenu>
