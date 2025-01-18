@@ -22,10 +22,7 @@ import {
 import { CalendarContextProvider } from "@/context/calendar-context";
 import { getClients } from "@/lib/data/clients";
 import { createClient } from "@/lib/supabase/server";
-import {
-  ChevronDown,
-  ChevronRight
-} from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
@@ -34,7 +31,7 @@ export default async function Layout({
   children,
   params,
 }: {
-  params: { clientId?: string };
+  params: { clientId: string };
   children: ReactNode;
 }) {
   const cookieStore = await cookies();
@@ -54,11 +51,11 @@ export default async function Layout({
   const { clientId } = await params;
 
   const clients = await getClients();
-  
-  if (!clientId || !clients.map((client) => client.id).includes(clientId)) {
+
+  if (!clients.map((client) => client.id).includes(clientId)) {
     redirect("/");
   }
-  
+
   return (
     <CalendarContextProvider>
       <SidebarProvider defaultOpen={defaultOpen}>
@@ -79,7 +76,9 @@ export default async function Layout({
                       <DropdownMenuContent align="start">
                         {clients.map((client) => (
                           <DropdownMenuItem key={client.id}>
-                            <BreadcrumbLink href={`/calendar/client/${client.id}`}>
+                            <BreadcrumbLink
+                              href={`/calendar/client/${client.id}`}
+                            >
                               {client.firstname} {client.lastname}
                             </BreadcrumbLink>
                           </DropdownMenuItem>
