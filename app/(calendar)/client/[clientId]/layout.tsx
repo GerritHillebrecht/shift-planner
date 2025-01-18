@@ -22,7 +22,6 @@ import {
 
 import { getClientByUUID, getClients } from "@/lib/data/clients";
 import { createClient } from "@/lib/supabase/server";
-import { get } from "http";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
