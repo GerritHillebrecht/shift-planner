@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { login } from "@/app/auth/login/actions";
 import Script from "next/script";
-import { CredentialResponse } from "google-one-tap";
 
 export function LoginForm({
   className,
