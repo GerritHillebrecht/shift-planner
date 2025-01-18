@@ -13,6 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
+
 require("dayjs/locale/de");
 
 export function RowServiceRequirement({
@@ -117,7 +118,11 @@ export function RowServiceRequirement({
         )}
       >
         {date_in_shifts && (
-          <img className="h-4 w-4" src={serviceRequirement.icon} />
+          <img
+            className="h-4 w-4"
+            src={serviceRequirement.icon}
+            alt={serviceRequirement.service_name}
+          />
         )}
         {(has_shift_in_day || requirement_fullfilled) &&
           active_day &&

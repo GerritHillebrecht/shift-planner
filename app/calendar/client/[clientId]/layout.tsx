@@ -24,9 +24,7 @@ import { getClients } from "@/lib/data/clients";
 import { createClient } from "@/lib/supabase/server";
 import {
   ChevronDown,
-  ChevronDownIcon,
-  ChevronRight,
-  Slash,
+  ChevronRight
 } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

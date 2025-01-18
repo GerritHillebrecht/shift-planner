@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { ChevronUp, User2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,7 +6,6 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
-import { ChevronUp, User2 } from "lucide-react";
 
 export function AppSidebarFooter({ user }: { user: any }) {
   return (

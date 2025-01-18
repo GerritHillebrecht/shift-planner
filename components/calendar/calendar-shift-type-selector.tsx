@@ -22,6 +22,7 @@ export function CalendarShiftTypeSelector({
 }: CalendarShiftTypeSelectorProps) {
   const [serviceRequirement, setServiceRequirement] =
     useState<ServiceRequirement | null>(null);
+    
   const context = useContext(CalendarContext);
 
   if (!context) {

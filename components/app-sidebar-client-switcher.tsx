@@ -1,4 +1,8 @@
+import { Client } from "@/models/clients";
+import gtibLogo from "@/public/images/gtib_logo.png";
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,11 +17,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "./ui/sidebar";
-import { useState } from "react";
-import gtibLogo from "@/public/images/gtib_logo.png";
-import Image from "next/image";
-import { Client } from "@/models/clients";
-import Link from "next/link";
 
 interface ClientSwitcherProps {
   clients?: Client[];

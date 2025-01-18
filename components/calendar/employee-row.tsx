@@ -1,4 +1,3 @@
-import { useShifts } from "@/hooks/use-supabase";
 import { Client, Employee, Shift } from "@/models";
 
 import { CalendarDayHeadline } from "./calendar-day-headline";

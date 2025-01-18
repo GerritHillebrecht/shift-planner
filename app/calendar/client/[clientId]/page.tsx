@@ -6,7 +6,7 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export async function generateMetadata({ params, searchParams }: Props) {
+export async function generateMetadata({ params }: Props) {
   const { clientId } = await params;
   const { data: client } = await getClientByUUID(clientId);
 
@@ -26,7 +26,7 @@ export default async function Page({
     return null;
   }
 
-  const { data: activeClient, error } = await getClientByUUID(clientId);
+  const { data: activeClient } = await getClientByUUID(clientId);
 
   return (
     <div className="pb-4">

@@ -1,14 +1,12 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { createClient } from "./supabase/server";
-import { redirect } from "next/navigation";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 export function getWeekdayFromDate() {
-  const cache: { [key: string]: any } = {};
+  const cache: { [key: string]: Date | string | number } = {};
 
   return function (currentMonth: Date, day: number) {
     const cacheKey = `${currentMonth.getFullYear()}-${currentMonth.getMonth()}-${day}`;

@@ -1,18 +1,13 @@
 "use client";
 
-import { Client } from "@/models/clients";
-import { useEffect, useState } from "react";
-import { CalendarContainer } from "./calendar-container";
-import { EmployeeRow } from "./employee-row";
-import { ClientRow } from "./client-row";
 import { useShifts } from "@/hooks/use-supabase";
-import { Button } from "../ui/button";
-import { CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { Client } from "@/models/clients";
+import { useState } from "react";
 import { Skeleton } from "../ui/skeleton";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Calendar as CalenderComponent } from "../ui/calendar";
-import { cn } from "@/lib/utils";
+import { CalendarContainer } from "./calendar-container";
 import { CalendarToolbar } from "./calendar-toolbar";
+import { ClientRow } from "./client-row";
+import { EmployeeRow } from "./employee-row";
 
 interface CalendarProps {
   activeClient: Client;
@@ -32,7 +27,7 @@ export function Calendar({ activeClient, className }: CalendarProps) {
     new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)
   );
 
-  const { shifts, loading, error } = useShifts(startDate, endDate);
+  const { shifts, loading } = useShifts(startDate, endDate);
 
   console.log("shifts", shifts);
 
