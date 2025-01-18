@@ -44,7 +44,7 @@ export default async function Layout({ children, params }: LayoutProps) {
   } = await supabase.auth.getUser();
 
   if (supabaseError || !user) {
-    redirect("/login");
+    redirect("/auth/login");
   }
 
   const { clientId } = await params;
