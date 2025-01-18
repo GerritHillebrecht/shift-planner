@@ -74,9 +74,6 @@ export function ClientSwitcher({
                     onClick={() => setActiveClient && setActiveClient(client)}
                     className="gap-2 p-2"
                   >
-                    <div className="flex size-6 items-center justify-center rounded-sm border">
-                      {/* <client.logo className="size-4 shrink-0" /> */}
-                    </div>
                     {client.firstname} {client.lastname}
                     <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
                   </DropdownMenuItem>
