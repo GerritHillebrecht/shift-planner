@@ -31,7 +31,7 @@ export default async function Layout({
   children,
   params,
 }: {
-  params: { clientId: string };
+  params: Promise<{ clientId: string }>;
   children: ReactNode;
 }) {
   const cookieStore = await cookies();
