@@ -1,5 +1,10 @@
+import { HeroSection } from "@/components/landing/section.hero";
 import Link from "next/link";
 
 export default async function Page() {
-  return <Link href="/client">Klienten</Link>;
+  return (
+    <main>
+      <HeroSection />
+    </main>
+  );
 }

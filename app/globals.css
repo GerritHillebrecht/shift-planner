@@ -12,6 +12,10 @@ body {
   margin-top: 0;
 }
 
+@view-transition {
+  navigation: auto;
+}
+
 @media print {
   body {
     width: 100%;

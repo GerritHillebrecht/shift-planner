@@ -34,11 +34,7 @@ interface LayoutProps {
 }
 
 export default async function Layout({ children, params }: LayoutProps) {
-  const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
-
   const { clientId } = await params;
-  const clients = await getClients();
 
   const supabase = await createClient();
 
@@ -49,6 +45,11 @@ export default async function Layout({ children, params }: LayoutProps) {
   if (!getClientByUUID(clientId)) {
     redirect("/");
   }
+
+  const cookieStore = await cookies();
+  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
+
+  const clients = await getClients();
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
