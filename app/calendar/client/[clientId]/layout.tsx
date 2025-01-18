@@ -27,13 +27,12 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
-export default async function Layout({
-  children,
-  params,
-}: {
-  params: Promise<{ clientId: string }>;
+interface LayoutProps {
   children: ReactNode;
-}) {
+  params: { clientId: string };
+}
+
+export default async function Layout({ children, params }: LayoutProps) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
 
@@ -48,7 +47,7 @@ export default async function Layout({
     redirect("/login");
   }
 
-  const { clientId } = await params;
+  const { clientId } = params;
 
   const clients = await getClients();
 
