@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,24 @@ export default function RootLayout({
           {children}
           <Toaster />
         </ThemeProvider>
+        <Script type="speculationrules">
+          {`
+            {
+              "prerender": [
+                {
+                  "where": {
+                    "and": [
+                      { "href_matches": "/*" },
+                      { "not": { "selector_matches": ".no-prerender" } },
+                      { "not": { "selector_matches": "[rel~=nofollow]" } }
+                    ]
+                  },
+                  "eagerness": "moderate"
+                }
+              ]
+            }
+          `}
+        </Script>
       </body>
     </html>
   );

@@ -1,35 +1,27 @@
 "use client";
 
-import { useShifts } from "@/hooks/use-supabase";
-import { Client } from "@/models/clients";
-import { useState } from "react";
+import { ReactNode } from "react";
 import { Skeleton } from "../ui/skeleton";
-import { CalendarContainer } from "./calendar-container";
-import { CalendarToolbar } from "./calendar-toolbar";
-import { ClientRow } from "./client-row";
-import { EmployeeRow } from "./employee-row";
+import { CalendarContainer } from "./components/calendar-container";
+import { CalendarToolbar } from "./components/calendar-toolbar";
+import { useCalendar } from "./provider";
 
 interface CalendarProps {
-  activeClient: Client;
+  // activeClient: Client;
   className?: string;
+  children?: ReactNode;
+  view?: "month" | "week";
+  perspective?: "employee" | "client";
 }
 
-export function Calendar({ activeClient, className }: CalendarProps) {
-  const [startDate, setStartDate] = useState(
-    new Date(new Date().getFullYear(), new Date().getMonth(), 1)
-  );
-
-  const [endDate, setEndDate] = useState(
-    new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)
-  );
-
-  const [currentDate, setCurrentDate] = useState(
-    new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)
-  );
-
-  const { shifts, loading } = useShifts(startDate, endDate);
-
-  console.log("shifts", shifts);
+export function Calendar({
+  // activeClient,
+  className,
+  children,
+  perspective = "client",
+  view = "month",
+}: CalendarProps) {
+  const { loading } = useCalendar();
 
   return (
     <>
@@ -37,26 +29,15 @@ export function Calendar({ activeClient, className }: CalendarProps) {
         <Skeleton className="absolute top-0 inset-x-0 h-1 bg-red-400/40 z-50"></Skeleton>
       )}
       <CalendarContainer className={className}>
-        <CalendarToolbar
-          currentDate={currentDate}
-          setCurrentDate={setCurrentDate}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-        />
-        <ClientRow
-          currentMonth={currentDate}
-          activeClient={activeClient}
-          shifts={shifts}
-        />
-        {activeClient.team?.[0]?.employees?.map((employee) => (
-          <EmployeeRow
+        <CalendarToolbar />
+        {children}
+        {/* {selectedPerspective === "employee" && (
+          <CalendarEmployeeView
             activeClient={activeClient}
-            employee={employee}
-            currentMonth={currentDate}
-            key={employee.id}
+            currentDate={currentDate}
             shifts={shifts}
           />
-        ))}
+        )} */}
       </CalendarContainer>
     </>
   );

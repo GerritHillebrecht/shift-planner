@@ -9,9 +9,14 @@ interface CalendarClientProps {
   className?: string;
 }
 
-export function CalendarRow({ children }: CalendarClientProps) {
+export function CalendarRow({ children, className }: CalendarClientProps) {
   return (
-    <div className="grid grid-cols-[1fr,7fr] gap-2 w-full border rounded-sm print:rounded-none">
+    <div
+      className={cn(
+        "grid grid-cols-[1fr,7fr] gap-2 w-full border rounded-sm print:rounded-none",
+        className
+      )}
+    >
       {children}
     </div>
   );

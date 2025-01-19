@@ -19,26 +19,44 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { Client } from "@/models/clients";
-import { useState } from "react";
+import { UserResponse } from "@supabase/supabase-js";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
 import { ClientSwitcher } from "./app-sidebar-client-switcher";
 import { AppSidebarFooter } from "./app-siderbar-footer";
+import { useCalendar } from "./calendar/provider";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "./ui/collapsible";
-import { UserResponse } from "@supabase/supabase-js";
 
 interface AppSidebarProps {
-  clients: Client[];
-  activeClientId: string;
   user: UserResponse["data"]["user"];
 }
 
-export function AppSidebar({ clients, activeClientId, user }: AppSidebarProps) {
-  const [activeClient, setActiveClient] = useState<Client>(
-    clients.find((client) => client.id === activeClientId)!
-  );
+export function AppSidebar({ user }: AppSidebarProps) {
+  const { clients, activeClient, setActiveClient } = useCalendar();
+  const params = useParams();
+
+  useEffect(() => {
+    console.log("params", params);
+    const activeClient = clients.find(
+      (client) => client.id === params.clientId
+    );
+    if (activeClient) {
+      setActiveClient(activeClient);
+    }
+  }, [clients]);
+
+  useEffect(() => {
+    const activeClient = clients.find(
+      (client) => client.id === params.clientId
+    );
+    if (activeClient) {
+      setActiveClient(activeClient);
+    }
+  }, [clients, params.clientId]);
 
   return (
     <Sidebar collapsible="icon">
@@ -57,7 +75,7 @@ export function AppSidebar({ clients, activeClientId, user }: AppSidebarProps) {
           </SidebarGroupAction>
           <SidebarGroupContent>
             <SidebarMenu>
-              {activeClient.team?.map((team, index) => (
+              {activeClient?.team?.map((team, index) => (
                 <Collapsible
                   defaultOpen={true}
                   asChild
@@ -77,7 +95,7 @@ export function AppSidebar({ clients, activeClientId, user }: AppSidebarProps) {
                         {team.employees?.map((teamMember) => (
                           <SidebarMenuSubItem key={teamMember.id}>
                             <SidebarMenuSubButton asChild>
-                              <a href={`/employee/${teamMember.id}`}>
+                              <a href={`/calendar/employee/${teamMember.id}`}>
                                 <span>
                                   {teamMember.firstname} {teamMember.lastname}
                                 </span>

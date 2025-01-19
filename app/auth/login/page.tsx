@@ -16,7 +16,7 @@ export default function LoginPage() {
         <Image
           src={heroImage}
           alt="Hero image"
-          layout="fill"
+          fill={true}
           objectFit="cover"
           className="blur-sm scale-105"
         />

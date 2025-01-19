@@ -1,36 +1,27 @@
+import { getClientByUUID, getClients } from "@/lib/data/clients";
 import { createClient } from "@/lib/supabase/server";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { ReactNode } from "react";
 
-export default async function Layout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const supabase = await createClient();
-  // const cookieStore = await cookies();
-  // const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
+interface LayoutProps {
+  children: ReactNode;
+  params: Promise<{ clientId: string }>;
+}
 
-  // const clients = await getClients();
+export default async function Layout({ children, params }: LayoutProps) {
+  const { clientId } = await params;
 
-  const {
-    data: { user },
-    error: supabaseError,
-  } = await supabase.auth.getUser();
-
-  if (supabaseError || !user) {
-    redirect("/auth/login");
+  if (!getClientByUUID(clientId)) {
+    redirect("/calendar");
   }
 
   return (
     // <SidebarProvider defaultOpen={defaultOpen}>
-    //   <AppSidebar
-    //     user={user}
-    //     clients={clients}
-    //     activeClientId={clients[0].id}
-    //   />
+    //   <AppSidebar user={user} clients={clients} activeClientId={clientId} />
     //   <SidebarInset>
-    //     <header className="flex justify-between pr-4 h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-    //       <div className="flex items-center gap-x-2 px-4 print:hidden">
+    //     <header className="print:hidden flex justify-between pr-4 h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+    //       <div className="flex items-center gap-x-2 px-4">
     //         <SidebarTrigger />
     //         <Separator orientation="vertical" className="mr-2 h-4" />
     //         <Breadcrumb>
@@ -58,7 +49,7 @@ export default async function Layout({
     //             <BreadcrumbItem>
     //               <BreadcrumbPage>
     //                 {
-    //                   clients.find((client) => client.id === clients[0].id)
+    //                   clients.find((client) => client.id === clientId)
     //                     ?.firstname
     //                 }
     //               </BreadcrumbPage>
@@ -68,10 +59,10 @@ export default async function Layout({
     //       </div>
     //       <ModeToggle />
     //     </header>
-    //     <main className="w-full px-6">
+    //     <main className="w-full px-6">{
     children
-    // </main>
-    //  </SidebarInset>
-    //</SidebarProvider>
+    //     }</main>
+    //   </SidebarInset>
+    // </SidebarProvider>
   );
 }

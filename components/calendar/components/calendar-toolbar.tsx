@@ -1,21 +1,14 @@
 import { CalendarIcon, ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "../ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Calendar } from "../ui/calendar";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useCalendar } from "../provider";
 
-export function CalendarToolbar({
-  currentDate,
-  setCurrentDate,
-  setStartDate,
-  setEndDate,
-}: {
-  currentDate: Date;
-  setCurrentDate: (date: Date) => void;
-  setStartDate: (date: Date) => void;
-  setEndDate: (date: Date) => void;
-}) {
+export function CalendarToolbar() {
+  const { currentDate, setCurrentDate, setStartDate, setEndDate } =
+    useCalendar();
   const [formattedDate, setFormattedDate] = useState(
     currentDate.toLocaleString("de-DE", {
       month: "long",
@@ -87,7 +80,7 @@ export function CalendarToolbar({
             )
           }
         >
-          Today
+          Heute
         </Button>
         <Button
           variant={"outline"}

@@ -20,8 +20,8 @@ import {
 
 interface ClientSwitcherProps {
   clients?: Client[];
-  activeClient?: Client;
-  setActiveClient?: (client: Client) => void;
+  activeClient: Client | null;
+  setActiveClient: (client: Client) => void;
 }
 
 export function ClientSwitcher({
@@ -40,7 +40,7 @@ export function ClientSwitcher({
               <Image src={gtibLogo} alt="GTIB Logo" width={24} height={24} />
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {activeClient?.firstname}
+                  {activeClient?.firstname || "Klienten"}
                 </span>
                 <span className="truncate text-xs">
                   {activeClient?.lastname}
@@ -69,15 +69,19 @@ export function ClientSwitcher({
                 return 0;
               })
               .map((client, index) => (
-                <Link key={index} href={`/client/${client.id}`}>
-                  <DropdownMenuItem
-                    onClick={() => setActiveClient && setActiveClient(client)}
-                    className="gap-2 p-2"
-                  >
-                    {client.firstname} {client.lastname}
-                    <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
-                  </DropdownMenuItem>
-                </Link>
+                // <Link key={index} href={`/calendar/client/${client.id}`}>
+                <DropdownMenuItem
+                  key={client.id}
+                  onClick={() => {
+                    setActiveClient(client)
+                    window.history.pushState({}, '', `/calendar/client/${client.id}`)
+                  }}
+                  className="gap-2 p-2"
+                >
+                  {client.firstname} {client.lastname}
+                  <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+                </DropdownMenuItem>
+                // </Link>
               ))}
           </DropdownMenuContent>
         </DropdownMenu>

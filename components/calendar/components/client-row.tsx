@@ -1,18 +1,19 @@
 import { Client, Shift } from "@/models";
 import { CalendarDayHeadline } from "./calendar-day-headline";
 import { CalendarRow } from "./calendar-row";
+import { useCalendar } from "../provider";
 
 export function ClientRow({
   currentMonth,
-  activeClient,
-  shifts
+  shifts,
 }: {
   currentMonth: Date;
-  activeClient: Client;
   shifts: Shift[];
 }) {
+  const { activeClient } = useCalendar();
+
   return (
-    <CalendarRow>
+    <CalendarRow className="sticky top-0 z-10 bg-background">
       <span></span>
       <div
         className="grid"
@@ -20,15 +21,16 @@ export function ClientRow({
           gridTemplateColumns: `repeat(${currentMonth.getDate()}, 1fr)`,
         }}
       >
-        {Array.from({ length: currentMonth.getDate() }).map((_, index) => (
-          <CalendarDayHeadline
-            key={index}
-            currentMonth={currentMonth}
-            serviceRequirements={activeClient.serviceRequirements}
-            shifts={shifts}
-            dayOfMonth={index + 1}
-          />
-        ))}
+        {activeClient &&
+          Array.from({ length: currentMonth.getDate() }).map((_, index) => (
+            <CalendarDayHeadline
+              key={index}
+              currentMonth={currentMonth}
+              serviceRequirements={activeClient.serviceRequirements}
+              shifts={shifts}
+              dayOfMonth={index + 1}
+            />
+          ))}
         {/* {activeClient.serviceRequirements.map((serviceRequirement, index) => (
           <CalendarServiceRequirementRow
             key={index}

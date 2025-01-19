@@ -25,7 +25,7 @@ export function CalendarDayHeadline({
   return (
     <div
       className={cn(
-        "py-1 text-sm border-l flex items-center flex-col justify-center relative"
+        "py-1 text-sm border-l flex items-center flex-col justify-center relative overflow-hidden"
       )}
     >
       <div

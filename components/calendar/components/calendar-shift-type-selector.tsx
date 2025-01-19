@@ -9,7 +9,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 interface CalendarShiftTypeSelectorProps {
   serviceRequirements: ServiceRequirement[];

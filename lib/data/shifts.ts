@@ -33,3 +33,13 @@ export async function deleteShift(shiftId: string) {
 
   console.log("Schicht erfolgreich gelöscht:", data);
 }
+
+export async function getShifts(startDate: Date, endDate: Date) {
+  const supabase = await createClient();
+
+  return await supabase
+    .from("shifts")
+    .select("*")
+    .gt("date", startDate.toISOString())
+    .lte("date", endDate.toISOString());
+}
