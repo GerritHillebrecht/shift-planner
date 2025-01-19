@@ -22,6 +22,9 @@ export function CalendarDayHeadline({
     new Date(currentMonth.getFullYear(), currentMonth.getMonth(), dayOfMonth)
   );
 
+  const startOfDay = date.startOf("day");
+  const endOfDay = date.endOf("day");
+
   return (
     <div
       className={cn(
@@ -39,9 +42,11 @@ export function CalendarDayHeadline({
         {serviceRequirements?.map((serviceRequirement, index) => {
           const isFullfilled = shifts.some(
             ({ date: shiftDate, requirement_id }) => {
+              const dayjsDate = dayjs(shiftDate);
               return (
-                shiftDate === date.format("YYYY-MM-DD") &&
-                requirement_id === serviceRequirement.id
+                requirement_id === serviceRequirement.id &&
+                dayjsDate > startOfDay &&
+                dayjsDate < endOfDay
               );
             }
           );

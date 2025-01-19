@@ -122,16 +122,25 @@ export function RowServiceRequirement({
     );
 
     const requirement_fullfilled = shifts.find(
-      ({ date, requirement_id, employee_id }) =>
-        date === current_date &&
-        requirement_id == serviceRequirement.id &&
-        employee_id != employee.id
+      ({ date, requirement_id, employee_id }) => {
+        const currentDate = dayjs(date);
+        return (
+          requirement_id == serviceRequirement.id &&
+          employee_id != employee.id &&
+          currentDate > startOfDay &&
+          currentDate < endOfDay
+        );
+      }
     );
 
-    const has_shift_in_day = shifts.find(
-      ({ date, employee_id }) =>
-        employee_id === employee.id && date === current_date
-    );
+    const has_shift_in_day = shifts.find(({ date, employee_id }) => {
+      const currentDate = dayjs(date);
+      return (
+        employee_id === employee.id &&
+        currentDate > startOfDay &&
+        currentDate < endOfDay
+      );
+    });
 
     return (
       <div
