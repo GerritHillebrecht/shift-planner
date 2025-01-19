@@ -1,4 +1,3 @@
-import { Calendar } from "@/components/calendar/calendar";
 import { CalendarEmployeeView } from "@/components/calendar/views/employee-view";
 import { getClientByUUID } from "@/lib/data/clients";
 
@@ -28,7 +27,7 @@ export default async function Page({ params }: PageProps) {
     <div className="pb-4">
       <h1 className="text-3xl">{activeClient.firstname}</h1>
       <p className="mb-4">{activeClient.lastname}</p>
-      <CalendarEmployeeView activeClient={activeClient} />
+      <CalendarEmployeeView />
     </div>
   );
 }

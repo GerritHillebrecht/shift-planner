@@ -1,31 +1,10 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { AppSidebarInset } from "@/components/app-sidebar-inset";
-import { Calendar } from "@/components/calendar/calendar";
 import { CalendarProvider } from "@/components/calendar/provider";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
+  SidebarProvider
 } from "@/components/ui/sidebar";
-import { ModeToggle } from "@/components/ui/theme-selector";
-import { getClients } from "@/lib/data/clients";
 import { createClient } from "@/lib/supabase/server";
-import { ChevronDown, ChevronRight } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 

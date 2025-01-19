@@ -1,7 +1,7 @@
-import { Client, Shift } from "@/models";
+import { Shift } from "@/models";
+import { useCalendar } from "../provider";
 import { CalendarDayHeadline } from "./calendar-day-headline";
 import { CalendarRow } from "./calendar-row";
-import { useCalendar } from "../provider";
 
 export function ClientRow({
   currentMonth,

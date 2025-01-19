@@ -18,7 +18,6 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import { Client } from "@/models/clients";
 import { UserResponse } from "@supabase/supabase-js";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";

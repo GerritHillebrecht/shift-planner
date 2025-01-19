@@ -1,4 +1,3 @@
-import { Calendar } from "@/components/calendar/calendar";
 import { getClients } from "@/lib/data/clients";
 
 export default async function Page() {

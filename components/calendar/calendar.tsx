@@ -7,7 +7,6 @@ import { CalendarToolbar } from "./components/calendar-toolbar";
 import { useCalendar } from "./provider";
 
 interface CalendarProps {
-  // activeClient: Client;
   className?: string;
   children?: ReactNode;
   view?: "month" | "week";
@@ -15,12 +14,11 @@ interface CalendarProps {
 }
 
 export function Calendar({
-  // activeClient,
   className,
   children,
-  perspective = "client",
-  view = "month",
-}: CalendarProps) {
+}: // perspective = "client",
+// view = "month",
+CalendarProps) {
   const { loading } = useCalendar();
 
   return (

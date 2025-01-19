@@ -2,7 +2,6 @@ import { Client } from "@/models/clients";
 import gtibLogo from "@/public/images/gtib_logo.png";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
