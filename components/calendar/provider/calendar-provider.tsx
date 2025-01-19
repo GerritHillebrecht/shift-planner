@@ -125,6 +125,7 @@ export function CalendarProvider({
       console.error("Error fetching shifts", error);
       setError(error.message);
     } else {
+      console.log("Fetched shifts", data);
       setShifts(data);
     }
 
@@ -150,19 +151,19 @@ export function CalendarProvider({
   useEffect(() => {
     fetchShifts();
 
-    const handleInsert = (payload: any) => {
+    const handleInsert = (payload) => {
       // if (payload.new.client_id === client_id) {
       setShifts((prev) => [...prev, payload.new]);
       // }
     };
 
-    const handleUpdate = (payload: any) => {
+    const handleUpdate = (payload) => {
       setShifts((prev) =>
         prev.map((shift) => (shift.id === payload.new.id ? payload.new : shift))
       );
     };
 
-    const handleDelete = (payload: any) => {
+    const handleDelete = (payload) => {
       setShifts((prev) => prev.filter((shift) => shift.id !== payload.old.id));
     };
 

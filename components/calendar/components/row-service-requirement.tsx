@@ -14,7 +14,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import "dayjs/locale/de"
+import "dayjs/locale/de";
+
+interface RowServiceRequirementProps {
+  currentMonth: Date;
+  employee: Employee;
+  shifts: Shift[];
+  serviceRequirement: ServiceRequirement;
+  activeClient: Client;
+}
 
 export function RowServiceRequirement({
   currentMonth,
@@ -22,14 +30,19 @@ export function RowServiceRequirement({
   shifts,
   serviceRequirement,
   activeClient,
-}: {
-  currentMonth: Date;
-  employee: Employee;
-  shifts: Shift[];
-  serviceRequirement: ServiceRequirement;
-  activeClient: Client;
-}) {
-  async function handleClick(current_date: string, date_in_shifts: boolean) {
+}: RowServiceRequirementProps) {
+  async function handleClick(
+    current_date: string,
+    date_in_shifts: boolean,
+    day: number
+  ) {
+    const currentDate = dayjs(currentMonth)
+      .set("date", day)
+      .set("hour", Number(serviceRequirement.start_time.split(":")[0]))
+      .set("minute", Number(serviceRequirement.start_time.split(":")[1]));
+
+    console.log({ currentDate: currentDate.toISOString(), current_date, day });
+
     if (date_in_shifts) {
       const shift = shifts.find(
         ({ date, employee_id, requirement_id }) =>
@@ -46,12 +59,12 @@ export function RowServiceRequirement({
     }
 
     const newShift: Omit<Shift, "id"> = {
-      date: current_date,
+      date: currentDate.toISOString(),
       employee_id: employee.id,
       requirement_id: serviceRequirement.id,
       client_id: activeClient.id,
-      start_time: "07:00",
-      end_time: "19:00",
+      start_time: serviceRequirement.start_time,
+      end_time: serviceRequirement.end_time,
     };
 
     const addedShift = await AddShift(newShift);
@@ -80,15 +93,28 @@ export function RowServiceRequirement({
   }
 
   return Array.from({ length: currentMonth.getDate() }).map((_, index) => {
+    const currentDate = dayjs(currentMonth)
+      .set("date", index + 1)
+      .set("hour", Number(serviceRequirement.start_time.split(":")[0]))
+      .set("minute", Number(serviceRequirement.start_time.split(":")[1]));
+
     const current_date = `${currentMonth.getFullYear()}-${String(
       currentMonth.getMonth() + 1
     ).padStart(2, "0")}-${String(index + 1).padStart(2, "0")}`;
 
+    const startOfDay = currentDate.startOf("day");
+    const endOfDay = currentDate.endOf("day");
+
     const date_in_shifts = shifts.some(
-      ({ date, requirement_id, employee_id }) =>
-        date === current_date &&
-        requirement_id == serviceRequirement.id &&
-        employee_id === employee.id
+      ({ date, requirement_id, employee_id }) => {
+        const shiftDate = dayjs(date);
+        return (
+          shiftDate > startOfDay &&
+          shiftDate < endOfDay &&
+          requirement_id == serviceRequirement.id &&
+          employee_id === employee.id
+        );
+      }
     );
 
     const active_day = serviceRequirement.days_of_week.includes(
@@ -110,11 +136,11 @@ export function RowServiceRequirement({
     return (
       <div
         key={index}
-        onClick={() => handleClick(current_date, date_in_shifts)}
+        onClick={() => handleClick(current_date, date_in_shifts, index + 1)}
         className={cn(
           "h-6 border-l border-t flex items-center justify-center",
           active_day && !has_shift_in_day && "cursor-pointer",
-          !active_day && "bg-muted",
+          !active_day && "bg-muted"
         )}
       >
         {date_in_shifts && (

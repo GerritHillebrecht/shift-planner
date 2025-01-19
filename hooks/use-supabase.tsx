@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/client";
 import { Shift } from "@/models/shift";
+import { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 
 export const useShifts = (
@@ -26,7 +27,9 @@ export const useShifts = (
 
   const fetchShifts = async () => {
     console.log(`fetching shifts for ${startDateStr} - ${endDateStr}`);
-    console.log(`derived from for ${startDate.toISOString()} - ${endDate.toISOString()}`);
+    console.log(
+      `derived from for ${startDate.toISOString()} - ${endDate.toISOString()}`
+    );
     setLoading(true);
     setError(null);
 

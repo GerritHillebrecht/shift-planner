@@ -14,5 +14,5 @@ export default async function Layout({ children, params }: LayoutProps) {
     redirect("/calendar");
   }
 
-  return { children };
+  return children;
 }

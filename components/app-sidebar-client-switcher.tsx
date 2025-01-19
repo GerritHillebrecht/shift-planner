@@ -2,6 +2,7 @@ import { Client } from "@/models/clients";
 import gtibLogo from "@/public/images/gtib_logo.png";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +21,7 @@ import {
 interface ClientSwitcherProps {
   clients?: Client[];
   activeClient: Client | null;
-  setActiveClient: (client: Client) => void;
+  setActiveClient?: (client: Client) => void;
 }
 
 export function ClientSwitcher({
@@ -68,19 +69,19 @@ export function ClientSwitcher({
                 return 0;
               })
               .map((client, index) => (
-                // <Link key={index} href={`/calendar/client/${client.id}`}>
-                <DropdownMenuItem
-                  key={client.id}
-                  onClick={() => {
-                    setActiveClient(client)
-                    window.history.pushState({}, '', `/calendar/client/${client.id}`)
-                  }}
-                  className="gap-2 p-2"
+                <Link
+                  replace={true}
+                  key={index}
+                  href={`/calendar/client/${client.id}`}
                 >
-                  {client.firstname} {client.lastname}
-                  <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                // </Link>
+                  <DropdownMenuItem
+                    onClick={() => setActiveClient && setActiveClient(client)}
+                    className="gap-2 p-2"
+                  >
+                    {client.firstname} {client.lastname}
+                    <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </Link>
               ))}
           </DropdownMenuContent>
         </DropdownMenu>
