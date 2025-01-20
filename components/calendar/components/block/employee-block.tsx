@@ -43,7 +43,7 @@ export function CalendarEmployeeBlock({
               dayOfMonth={index + 1}
             />
           ))}
-          {activeClient.serviceRequirements.map((serviceRequirement, index) => (
+          {/* {activeClient.serviceRequirements.map((serviceRequirement, index) => (
             <RowServiceRequirement
               key={index}
               currentMonth={currentMonth}
@@ -51,7 +51,7 @@ export function CalendarEmployeeBlock({
               serviceRequirement={serviceRequirement}
               employee={employee}
             />
-          ))}
+          ))} */}
         </div>
       </CalendarRow>
       {activeClient.serviceRequirements.map((serviceRequirement) => (
