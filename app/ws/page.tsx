@@ -11,7 +11,6 @@ export default async function Page() {
 
   const {
     data: { user },
-    error: supabaseError,
   } = await supabase.auth.getUser();
 
   const workspaces = await getWorkspaces();

@@ -1,24 +1,12 @@
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
+  SidebarProvider
 } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/components/workspace-sidebar/workspace-sidebar";
+import { WorkspaceSidebarInset } from "@/components/workspace-sidebar/workspace-sidebar-inset";
 import { getWorkspaces } from "@/lib/data/workspace";
+import { PlannerProvider } from "@/provider";
 import { WorkspaceProvider } from "@/provider/workspace-provider";
 import { redirect } from "next/navigation";
-import { Planner } from "@/components/planner/planner";
-import { PlannerProvider } from "@/provider";
-import { WorkspaceSidebarInset } from "@/components/workspace-sidebar/workspace-sidebar-inset";
 
 export default async function Layout({
   children,

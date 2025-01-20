@@ -20,8 +20,6 @@ export function PlannerRow({ children, className }: CalendarClientProps) {
 export function PlannerClientDetails({
   className,
   employee,
-  shifts,
-  serviceRequirements,
 }: {
   className?: string;
   employee: Employee;

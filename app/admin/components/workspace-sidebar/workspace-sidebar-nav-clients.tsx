@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, User, User2, type LucideIcon } from "lucide-react";
+import { ChevronRight, User2 } from "lucide-react";
 
 import {
   Collapsible,
@@ -19,25 +19,14 @@ import {
 } from "@/components/ui/sidebar";
 import { useWorkspace } from "../../../../provider/workspace-provider";
 
-export function NavClients({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    isActive?: boolean;
-    items?: {
-      title: string;
-      url: string;
-    }[];
-  }[];
-}) {
+export function NavClients() {
   const { clients } = useWorkspace();
 
   return clients.map((client, index) => (
     <SidebarGroup key={client.id}>
-      <SidebarGroupLabel>{client.firstname} {client.lastname}</SidebarGroupLabel>
+      <SidebarGroupLabel>
+        {client.firstname} {client.lastname}
+      </SidebarGroupLabel>
       <SidebarMenu>
         {client.team?.map((team) => (
           <Collapsible
@@ -50,9 +39,7 @@ export function NavClients({
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton tooltip={team.team_name}>
                   <User2 />
-                  <span>
-                    {team.team_name}
-                  </span>
+                  <span>{team.team_name}</span>
                   <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                 </SidebarMenuButton>
               </CollapsibleTrigger>
@@ -64,12 +51,14 @@ export function NavClients({
                         <span>Dienstplan</span>
                       </a>
                     </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
+                  </SidebarMenuSubItem>
                   {team.employees?.map((employee) => (
                     <SidebarMenuSubItem key={employee.id}>
                       <SidebarMenuSubButton asChild>
                         <a href={employee.id}>
-                          <span>{employee.firstname} {employee.lastname}</span>
+                          <span>
+                            {employee.firstname} {employee.lastname}
+                          </span>
                         </a>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
