@@ -6,7 +6,7 @@ import { CalendarDayField } from "../calendar-day-field";
 import { CalendarDayHeadline } from "../headline/calendar-day-headline";
 import { CalendarClientDetails, CalendarRow } from "../row/calendar-row";
 import { CalendarRowElement } from "../row/calendar-row-element";
-import { CalendarRowSC } from "../row/row-sc";
+import { CalendarRowServiceRequirement } from "../row/row-sc";
 
 export function CalendarEmployeeBlock({
   activeClient,
@@ -42,19 +42,10 @@ export function CalendarEmployeeBlock({
               dayOfMonth={index + 1}
             />
           ))}
-          {/* {activeClient.serviceRequirements.map((serviceRequirement, index) => (
-            <RowServiceRequirement
-              key={index}
-              currentMonth={currentMonth}
-              activeClient={activeClient}
-              serviceRequirement={serviceRequirement}
-              employee={employee}
-            />
-          ))} */}
         </div>
       </CalendarRow>
       {activeClient.serviceRequirements.map((serviceRequirement) => (
-        <CalendarRowSC
+        <CalendarRowServiceRequirement
           key={serviceRequirement.id}
           serviceRequirement={serviceRequirement}
         >
@@ -69,7 +60,7 @@ export function CalendarEmployeeBlock({
               </CalendarDayField>
             );
           })}
-        </CalendarRowSC>
+        </CalendarRowServiceRequirement>
       ))}
     </CalendarRowElement>
   );

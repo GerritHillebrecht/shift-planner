@@ -40,11 +40,19 @@ export function AppSidebarInset({ children }: { children: ReactNode }) {
                     <ChevronDown size={12} />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
+                    <DropdownMenuItem>
+                      <BreadcrumbLink asChild>
+                        <Link replace={false} href="/calendar">
+                          Übersicht
+                        </Link>
+                      </BreadcrumbLink>
+                    </DropdownMenuItem>
+                    <Separator />
                     {clients?.map((client) => (
                       <DropdownMenuItem key={client.id}>
                         <BreadcrumbLink asChild>
                           <Link
-                            replace={true}
+                            replace={false}
                             href={`/calendar/client/${client.id}`}
                           >
                             {client.firstname} {client.lastname}

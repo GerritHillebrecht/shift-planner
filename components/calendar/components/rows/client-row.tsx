@@ -5,7 +5,7 @@ import { CalendarRowElement } from "../row/calendar-row-element";
 import { CalendarRowDetails } from "../row/row-details";
 import { CalendarRowHeadline } from "../headline/row-headline";
 import { CalendarDayField } from "../calendar-day-field";
-import { CalendarRowSC } from "../row/row-sc";
+import { CalendarRowServiceRequirement } from "../row/row-sc";
 
 export function ClientRow({ client }: { client: Client }) {
   const { daysInView } = useCalendar();
@@ -17,14 +17,14 @@ export function ClientRow({ client }: { client: Client }) {
         <CalendarRowHeadline serviceRequirements={client.serviceRequirements} />
       </CalendarRow>
       {client.serviceRequirements.map((serviceRequirement) => (
-        <CalendarRowSC
+        <CalendarRowServiceRequirement
           key={serviceRequirement.id}
           serviceRequirement={serviceRequirement}
         >
           {Array.from({ length: daysInView }).map((_, index) => (
             <CalendarDayField key={index}>{index + 1}</CalendarDayField>
           ))}
-        </CalendarRowSC>
+        </CalendarRowServiceRequirement>
       ))}
     </CalendarRowElement>
   );

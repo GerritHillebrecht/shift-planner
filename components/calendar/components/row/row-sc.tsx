@@ -3,7 +3,7 @@ import { CalendarRow } from "./calendar-row";
 import { CalendarRowDetails } from "./row-details";
 import { useCalendar } from "../../provider";
 
-export function CalendarRowSC({
+export function CalendarRowServiceRequirement({
   serviceRequirement,
   children,
 }: {

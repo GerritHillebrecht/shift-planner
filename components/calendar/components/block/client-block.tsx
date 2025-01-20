@@ -5,7 +5,7 @@ import { CalendarRowElement } from "../row/calendar-row-element";
 import { CalendarRowDetails } from "../row/row-details";
 import { CalendarRowHeadline } from "../headline/row-headline";
 import { CalendarDayField } from "../calendar-day-field";
-import { CalendarRowSC } from "../row/row-sc";
+import { CalendarRowServiceRequirement } from "../row/row-sc";
 import dayjs from "dayjs";
 
 import {
@@ -25,7 +25,7 @@ export function CalendarClientBlock({ client }: { client: Client }) {
         <CalendarRowHeadline serviceRequirements={client.serviceRequirements} />
       </CalendarRow>
       {client.serviceRequirements.map((serviceRequirement) => (
-        <CalendarRowSC
+        <CalendarRowServiceRequirement
           key={serviceRequirement.id}
           serviceRequirement={serviceRequirement}
         >
@@ -61,7 +61,7 @@ export function CalendarClientBlock({ client }: { client: Client }) {
               </CalendarDayField>
             );
           })}
-        </CalendarRowSC>
+        </CalendarRowServiceRequirement>
       ))}
     </CalendarRowElement>
   );

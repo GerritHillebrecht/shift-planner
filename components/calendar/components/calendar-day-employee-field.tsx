@@ -14,6 +14,7 @@ import { Info, Loader } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useCalendar } from "../provider";
+import { handleDateClick } from "../utils/handlers";
 
 interface CalendarDayEmployeeFieldProps {
   serviceRequirement: ServiceRequirement;
@@ -37,7 +38,7 @@ export function CalendarDayEmployeeField({
   const startOfDay = currentDate.startOf("day");
   const endOfDay = currentDate.endOf("day");
 
-  const date_in_shifts = shifts.some(
+  const isDateInShifts = shifts.some(
     ({ date, requirement_id, employee_id }) => {
       const shiftDate = dayjs(date);
       return (
@@ -49,59 +50,11 @@ export function CalendarDayEmployeeField({
     }
   );
 
-  async function handleClick(dateInShifts: boolean) {
-    if (dateInShifts) {
-      const shift = shifts.find(({ date, employee_id, requirement_id }) => {
-        const dayjsDate = dayjs(date);
-
-        return (
-          employee_id === employee.id &&
-          requirement_id === serviceRequirement.id &&
-          dayjsDate > currentDate.startOf("day") &&
-          dayjsDate < currentDate.endOf("day")
-        );
-      });
-
-      if (!shift) {
-        return;
-      }
-
-      return handleDeleteShift(shift);
-    }
-
-    const newShift: Omit<Shift, "id"> = {
-      date: currentDate.toISOString(),
-      employee_id: employee.id,
-      requirement_id: serviceRequirement.id,
-      client_id: activeClient!.id,
-      start_time: serviceRequirement.start_time,
-      end_time: serviceRequirement.end_time,
-    };
-    setLoading(true);
-    await AddShift(newShift);
-    setLoading(false);
-  }
-
-  async function handleDeleteShift(shift: Shift) {
-    if (confirm("Are you sure you want to delete this shift?")) {
-      setLoading(true);
-      await deleteShift(shift.id);
-      setLoading(false);
-      toast.success(
-        `${employee.firstname} wird nicht am ${dayjs(shift.date)
-          .locale("de")
-          .format("dddd, DD.MM")} im ${
-          serviceRequirement.service_name
-        } arbeiten.`
-      );
-    }
-  }
-
-  const active_day = serviceRequirement.days_of_week.includes(
+  const isActiveDay = serviceRequirement.days_of_week.includes(
     String((day - 1) % 7)
   );
 
-  const requirement_fullfilled = shifts.find(
+  const isRequirementFullfilled = shifts.find(
     ({ date, requirement_id, employee_id }) => {
       const currentDate = dayjs(date);
       return (
@@ -113,7 +66,7 @@ export function CalendarDayEmployeeField({
     }
   );
 
-  const has_shift_in_day = shifts.find(({ date, employee_id }) => {
+  const isShiftInDay = shifts.find(({ date, employee_id }) => {
     const currentDate = dayjs(date);
     return (
       employee_id === employee.id &&
@@ -124,14 +77,27 @@ export function CalendarDayEmployeeField({
 
   return (
     <div
-      onClick={() => handleClick(date_in_shifts)}
+      onClick={() =>
+        handleDateClick({
+          isDateInShifts,
+          currentDate,
+          employee,
+          serviceRequirement,
+          activeClient,
+          setLoading,
+          shifts,
+        })
+      }
       className={cn(
         "absolute inset-0 flex items-center justify-center",
-        active_day && !has_shift_in_day && "cursor-pointer",
-        !active_day && "bg-muted"
+        isActiveDay &&
+          !isRequirementFullfilled &&
+          !isShiftInDay &&
+          "cursor-pointer",
+        !isActiveDay && "bg-muted"
       )}
     >
-      {date_in_shifts && (
+      {isDateInShifts && (
         <img
           className="h-4 w-4 dark:invert"
           src={serviceRequirement.icon}
@@ -139,9 +105,9 @@ export function CalendarDayEmployeeField({
         />
       )}
       {loading && <Loader className="h-3 w-3 animate-spin" />}
-      {(has_shift_in_day || requirement_fullfilled) &&
-        active_day &&
-        !date_in_shifts && (
+      {(isShiftInDay || isRequirementFullfilled) &&
+        isActiveDay &&
+        !isDateInShifts && (
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -149,16 +115,16 @@ export function CalendarDayEmployeeField({
               </TooltipTrigger>
               <TooltipContent>
                 <ul>
-                  {requirement_fullfilled && (
+                  {isRequirementFullfilled && (
                     <li>
                       <span>Dieser Dienst ist bereits besetzt</span>
                     </li>
                   )}
-                  {has_shift_in_day && (
+                  {isShiftInDay && (
                     <li>
                       <span>
-                        Der Mitarbeiter wird an diesem Tag bereits bei{" "}
-                        {has_shift_in_day.client?.firstname} eingesetzt
+                        {employee.firstname} wird an diesem Tag bereits bei{" "}
+                        {isShiftInDay.client?.firstname} eingesetzt
                       </span>
                     </li>
                   )}

@@ -1,7 +1,85 @@
 import { createClient } from "@/lib/supabase/client";
 import { Shift } from "@/models/shift";
-import { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
+import { Workspace } from "@/models/workspace";
 import { useEffect, useState } from "react";
+
+export const useWorkspaces = () => {
+  const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const supabase = createClient();
+
+  const fetchWorkspaces = async () => {
+    setLoading(true);
+    setError(null);
+
+    const { data, error } = await supabase.from("workspaces").select("*");
+
+    if (error) {
+      setError(error.message);
+      console.error("Error fetching workspaces", error);
+    } else {
+      setWorkspaces(data);
+    }
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchWorkspaces();
+
+    const handleInsert = (payload: any) => {
+      setWorkspaces((prev) => [...prev, payload.new]);
+    };
+
+    const handleUpdate = (payload: any) => {
+      setWorkspaces((prev) =>
+        prev.map((workspace) =>
+          workspace.id === payload.new.id ? payload.new : workspace
+        )
+      );
+    };
+
+    const handleDelete = (payload: any) => {
+      setWorkspaces((prev) =>
+        prev.filter((workspace) => workspace.id !== payload.old.id)
+      );
+    };
+
+    const eventHandlers = {
+      INSERT: handleInsert,
+      UPDATE: handleUpdate,
+      DELETE: handleDelete,
+    };
+
+    const subscription = supabase
+      .channel("workspaces")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "workspaces",
+        },
+        (payload) => {
+          const handler = eventHandlers[payload.eventType];
+          if (handler) {
+            handler(payload);
+          } else {
+            console.warn("Unhandled event type", payload.eventType);
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(subscription);
+    };
+  }, []);
+
+  return { workspaces, loading, error };
+};
 
 export const useShifts = (
   // client_id: Employee["id"],
