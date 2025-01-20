@@ -146,7 +146,7 @@ export function AdminSidebar({
         <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
-        <NavClients items={data.navMain} />
+        <NavClients />
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>
