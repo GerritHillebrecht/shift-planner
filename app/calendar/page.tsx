@@ -1,5 +1,5 @@
-import { CalendarClientView } from "@/components/calendar/views/client-view";
+import { PlannerClientView } from "@/components/planner/views/planner-client-view";
 
 export default async function Page() {
-  return <CalendarClientView />;
+  return <PlannerClientView />;
 }

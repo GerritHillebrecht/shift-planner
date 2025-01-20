@@ -1,7 +1,3 @@
-export interface Employee {
-  id: string;
-  firstname: string;
-  lastname?: string;
-  email?: string;
-  phone_number?: string;
-}
+import { Tables } from "./supabase.types";
+
+export interface Employee extends Tables<"employees"> {}

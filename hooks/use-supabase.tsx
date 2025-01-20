@@ -14,7 +14,7 @@ export const useWorkspaces = () => {
     setLoading(true);
     setError(null);
 
-    const { data, error } = await supabase.from("workspaces").select("*");
+    const { data, error } = await supabase.from("workspace").select("*");
 
     if (error) {
       setError(error.message);

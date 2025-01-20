@@ -2,12 +2,7 @@ import { LoginForm } from "@/components/login-form";
 import heroImage from "@/public/images/hero-bg-image-3.jpg";
 import Image from "next/image";
 
-import { DM_Serif_Display } from "next/font/google";
-
-const dmSerifDisplay = DM_Serif_Display({
-  subsets: ["latin"],
-  weight: ["400"],
-});
+import { Logo } from "@/components/ui/logo";
 
 export default function LoginPage() {
   return (
@@ -29,7 +24,7 @@ export default function LoginPage() {
               <GalleryVerticalEnd className="size-4" />
             </div> */}
             {/* Acme Inc. */}
-            <span className={`font-bold text-black opacity-90 text-3xl ${dmSerifDisplay.className}`}>{process.env.APP_NAME}</span>
+            <Logo className="text-black" />
           </a>
 
           <LoginForm />

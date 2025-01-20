@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { useCalendar } from "./calendar/provider";
+import { usePlanner } from "@/provider";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -19,12 +19,16 @@ import {
 import { Separator } from "./ui/separator";
 import { SidebarInset, SidebarTrigger } from "./ui/sidebar";
 import { ModeToggle } from "./ui/theme-selector";
-import { Calendar } from "./calendar/calendar";
+import { Planner } from "./planner/planner";
 import { ReactNode } from "react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export function AppSidebarInset({ children }: { children: ReactNode }) {
-  const { clients, activeClient } = useCalendar();
+  const { clients, activeClient } = usePlanner();
+  const params = useParams();
+  const { workspaceId } = params;
+
   return (
     <SidebarInset>
       <header className="flex justify-between pr-6 h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
@@ -42,7 +46,7 @@ export function AppSidebarInset({ children }: { children: ReactNode }) {
                   <DropdownMenuContent align="start">
                     <DropdownMenuItem>
                       <BreadcrumbLink asChild>
-                        <Link replace={false} href="/calendar">
+                        <Link replace={false} href={`/ws/${workspaceId}`}>
                           Übersicht
                         </Link>
                       </BreadcrumbLink>
@@ -75,7 +79,7 @@ export function AppSidebarInset({ children }: { children: ReactNode }) {
         <ModeToggle />
       </header>
       <main className="w-full px-6">
-        <Calendar>{children}</Calendar>
+        <Planner>{children}</Planner>
       </main>
     </SidebarInset>
   );

@@ -1,4 +1,4 @@
-import { Calendar } from "@/components/calendar/calendar";
+import { Planner } from "@/components/planner/planner";
 import { ReactNode } from "react";
 
 export default function layout({
@@ -6,5 +6,5 @@ export default function layout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  return <Calendar>{children}</Calendar>;
+  return <Planner>{children}</Planner>;
 }

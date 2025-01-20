@@ -1,6 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { AppSidebarInset } from "@/components/app-sidebar-inset";
-import { CalendarProvider } from "@/components/calendar/provider";
+import { PlannerProvider } from "@/provider";
 import {
   SidebarProvider
 } from "@/components/ui/sidebar";
@@ -28,11 +28,11 @@ export default async function Layout({
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
 
   return (
-    <CalendarProvider>
+    <PlannerProvider>
       <SidebarProvider defaultOpen={defaultOpen}>
         <AppSidebar user={user} />
         <AppSidebarInset>{children}</AppSidebarInset>
       </SidebarProvider>
-    </CalendarProvider>
+    </PlannerProvider>
   );
 }

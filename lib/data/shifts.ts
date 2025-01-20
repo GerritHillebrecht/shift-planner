@@ -3,7 +3,7 @@
 import { Shift } from "@/models/shift";
 import { createClient } from "../supabase/server";
 
-export async function AddShift(shift: Omit<Shift, "id">) {
+export async function AddShift(shift: Omit<Shift, "id" | "created_at">) {
   const supabase = await createClient();
 
   const { data, error } = await supabase

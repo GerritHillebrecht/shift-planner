@@ -1,7 +1,6 @@
 import { Employee } from "./employees";
+import { Tables } from "./supabase.types";
 
-export interface Team {
-  id: string;
-  team_name: string;
-  employees: Employee[];
+export interface Team extends Tables<"teams"> {
+  employees?: Employee[];
 }

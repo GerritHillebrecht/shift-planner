@@ -72,7 +72,7 @@ export function ClientSwitcher({
                 <Link
                   replace={true}
                   key={index}
-                  href={`/calendar/client/${client.id}`}
+                  href={`/ws/client/${client.id}`}
                 >
                   <DropdownMenuItem
                     onClick={() => setActiveClient && setActiveClient(client)}

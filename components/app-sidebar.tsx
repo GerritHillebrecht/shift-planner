@@ -23,7 +23,7 @@ import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { ClientSwitcher } from "./app-sidebar-client-switcher";
 import { AppSidebarFooter } from "./app-siderbar-footer";
-import { useCalendar } from "./calendar/provider";
+import { usePlanner } from "@/provider";
 import {
   Collapsible,
   CollapsibleContent,
@@ -35,7 +35,7 @@ interface AppSidebarProps {
 }
 
 export function AppSidebar({ user }: AppSidebarProps) {
-  const { clients, activeClient, setActiveClient } = useCalendar();
+  const { clients, activeClient, setActiveClient } = usePlanner();
   const params = useParams();
 
   useEffect(() => {

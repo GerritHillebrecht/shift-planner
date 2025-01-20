@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "update-types": "supabase gen types typescript --project-id \"cphujkloggrroonyeqls\" --schema public > models/supabase.types.ts"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.15",

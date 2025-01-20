@@ -1,5 +1,7 @@
-export interface Workspace {
-  id: string;
-  workspace_name: string;
-  created_at: string;
+import { Client } from "./clients";
+import { Tables } from "./supabase.types";
+
+export interface Workspace extends Tables<"workspace"> {
+  workspaceType?: Tables<"workspaceTypes">;
+  clients?: Client[];
 }
