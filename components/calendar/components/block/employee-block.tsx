@@ -1,13 +1,12 @@
 import { Client, Employee, Shift } from "@/models";
 
+import { useCalendar } from "../../provider";
+import { CalendarDayEmployeeField } from "../calendar-day-employee-field";
+import { CalendarDayField } from "../calendar-day-field";
 import { CalendarDayHeadline } from "../headline/calendar-day-headline";
 import { CalendarClientDetails, CalendarRow } from "../row/calendar-row";
 import { CalendarRowElement } from "../row/calendar-row-element";
-import { RowServiceRequirement } from "../row/row-service-requirement";
 import { CalendarRowSC } from "../row/row-sc";
-import { useCalendar } from "../../provider";
-import { CalendarDayField } from "../calendar-day-field";
-import { CalendarDayEmployeeField } from "../calendar-day-employee-field";
 
 export function CalendarEmployeeBlock({
   activeClient,
