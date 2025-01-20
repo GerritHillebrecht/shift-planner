@@ -1,8 +1,5 @@
+import { CalendarClientView } from "@/components/calendar/views/client-view";
+
 export default async function Page() {
-  return (
-    <div>
-      <h1>Calendar</h1>
-      {/* <Calendar perspective="client" /> */}
-    </div>
-  );
+  return <CalendarClientView />;
 }

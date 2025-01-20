@@ -11,7 +11,7 @@ export function CalendarDayField({
   return (
     <div
       className={cn(
-        "h-6 border-l border-t flex items-center justify-center",
+        "h-6 border-l border-t flex items-center justify-center relative",
         className
       )}
     >

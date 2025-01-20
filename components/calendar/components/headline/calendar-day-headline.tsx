@@ -43,6 +43,7 @@ export function CalendarDayHeadline({
           const isFullfilled = shifts.some(
             ({ date: shiftDate, requirement_id }) => {
               const dayjsDate = dayjs(shiftDate);
+
               return (
                 requirement_id === serviceRequirement.id &&
                 dayjsDate > startOfDay &&
@@ -54,7 +55,7 @@ export function CalendarDayHeadline({
           return (
             <div
               key={index}
-              className={cn(isFullfilled && "bg-lime-400/75")}
+              className={cn(isFullfilled && "bg-primary/75")}
             ></div>
           );
         })}

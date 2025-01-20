@@ -27,7 +27,7 @@ export function AppSidebarInset({ children }: { children: ReactNode }) {
   const { clients, activeClient } = useCalendar();
   return (
     <SidebarInset>
-      <header className="flex justify-between pr-4 h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+      <header className="flex justify-between pr-6 h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
         <div className="flex items-center gap-x-2 px-4 print:hidden">
           <SidebarTrigger />
           <Separator orientation="vertical" className="mr-2 h-4" />
@@ -43,7 +43,10 @@ export function AppSidebarInset({ children }: { children: ReactNode }) {
                     {clients?.map((client) => (
                       <DropdownMenuItem key={client.id}>
                         <BreadcrumbLink asChild>
-                          <Link replace={true} href={`/calendar/client/${client.id}`}>
+                          <Link
+                            replace={true}
+                            href={`/calendar/client/${client.id}`}
+                          >
                             {client.firstname} {client.lastname}
                           </Link>
                         </BreadcrumbLink>
@@ -56,11 +59,7 @@ export function AppSidebarInset({ children }: { children: ReactNode }) {
                 <ChevronRight />
               </BreadcrumbSeparator>
               <BreadcrumbItem>
-                <BreadcrumbPage>
-                  {
-                    activeClient?.firstname
-                  }
-                </BreadcrumbPage>
+                <BreadcrumbPage>{activeClient?.firstname}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>

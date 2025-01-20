@@ -5,6 +5,8 @@ import { getShifts } from "@/lib/data/shifts";
 import { createClient } from "@/lib/supabase/client";
 import { Client, Shift } from "@/models";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
 import {
   createContext,
   ReactNode,
@@ -12,6 +14,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { toast } from "sonner";
 
 type CalendarContextType = {
   shifts: Shift[];
@@ -119,27 +122,37 @@ export function CalendarProvider({
     setLoading(true);
     setError(null);
 
-    const { data, error } = await getShifts(startDate, endDate);
+    const { data: shifts, error } = await getShifts(startDate, endDate);
 
     if (error) {
       console.error("Error fetching shifts", error);
       setError(error.message);
     } else {
-      console.log("Fetched shifts", data);
-      setShifts(data);
+      console.log("Fetched shifts", shifts);
+      setShifts(shifts);
     }
 
     setLoading(false);
   };
 
   const fetchClients = async () => {
-    const { data, error } = await getAllClients();
+    const { data: clients, error } = await getAllClients();
 
     if (error) {
       console.error("Error fetching clients", error);
       setError(error.message);
     } else {
-      setClients(data);
+      setClients(
+        clients.sort((a, b) => {
+          if (a.firstname < b.firstname) {
+            return -1;
+          }
+          if (a.firstname > b.firstname) {
+            return 1;
+          }
+          return 0;
+        })
+      );
     }
   };
 
@@ -151,10 +164,29 @@ export function CalendarProvider({
   useEffect(() => {
     fetchShifts();
 
-    const handleInsert = (payload) => {
-      // if (payload.new.client_id === client_id) {
-      setShifts((prev) => [...prev, payload.new]);
-      // }
+    const handleInsert = async (payload) => {
+      const { data: shiftWithEmployee } = await supabase
+        .from("shifts")
+        .select(
+          "*, employee:employees(*), client:clients(*), serviceRequirement:serviceRequirements(*)"
+        )
+        .eq("id", payload.new.id)
+        .single();
+
+      setShifts((prev) => [...prev, shiftWithEmployee]);
+
+      if (shiftWithEmployee) {
+        const name = `${shiftWithEmployee.employee.firstname} ${shiftWithEmployee.employee.lastname}`;
+        const date = dayjs(shiftWithEmployee.date)
+          .locale("de")
+          .format("dddd, DD.MM");
+        const service = shiftWithEmployee.serviceRequirement.service_name;
+        const client = shiftWithEmployee.client.firstname;
+
+        toast.success(
+          `${name} arbeitet am ${date} bei ${client} im ${service}`
+        );
+      }
     };
 
     const handleUpdate = (payload) => {

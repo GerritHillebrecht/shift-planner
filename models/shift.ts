@@ -1,3 +1,6 @@
+import { Client } from "./clients";
+import { Employee } from "./employees";
+
 export interface Shift {
   id: string;
   start_time: string;
@@ -5,5 +8,7 @@ export interface Shift {
   date: string;
   requirement_id: string;
   employee_id: string;
+  employee?: Employee;
   client_id: string;
+  client?: Client;
 }

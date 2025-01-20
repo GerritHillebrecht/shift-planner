@@ -39,7 +39,7 @@ export async function getShifts(startDate: Date, endDate: Date) {
 
   return await supabase
     .from("shifts")
-    .select("*")
+    .select("*, employee:employees(*), client:clients(*)")
     .gt("date", startDate.toISOString())
     .lte("date", endDate.toISOString());
 }

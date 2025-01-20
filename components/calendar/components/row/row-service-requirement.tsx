@@ -1,3 +1,9 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { AddShift, deleteShift } from "@/lib/data/shifts";
 import { cn } from "@/lib/utils";
 import { Client } from "@/models/clients";
@@ -7,19 +13,13 @@ import { Shift } from "@/models/shift";
 import dayjs from "dayjs";
 import { Info } from "lucide-react";
 import { toast } from "sonner";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 import "dayjs/locale/de";
+import { useCalendar } from "../../provider";
 
 interface RowServiceRequirementProps {
   currentMonth: Date;
   employee: Employee;
-  shifts: Shift[];
   serviceRequirement: ServiceRequirement;
   activeClient: Client;
 }
@@ -27,10 +27,10 @@ interface RowServiceRequirementProps {
 export function RowServiceRequirement({
   currentMonth,
   employee,
-  shifts,
   serviceRequirement,
   activeClient,
 }: RowServiceRequirementProps) {
+  const { shifts } = useCalendar();
   async function handleClick(
     current_date: string,
     date_in_shifts: boolean,
@@ -44,12 +44,15 @@ export function RowServiceRequirement({
     console.log({ currentDate: currentDate.toISOString(), current_date, day });
 
     if (date_in_shifts) {
-      const shift = shifts.find(
-        ({ date, employee_id, requirement_id }) =>
+      const shift = shifts.find(({ date, employee_id, requirement_id }) => {
+        const dayjsDate = dayjs(date);
+        return (
           employee_id === employee.id &&
-          date === current_date &&
+          dayjsDate > currentDate.startOf("day") &&
+          dayjsDate < currentDate.endOf("day") &&
           requirement_id === serviceRequirement.id
-      );
+        );
+      });
 
       if (!shift) {
         return;

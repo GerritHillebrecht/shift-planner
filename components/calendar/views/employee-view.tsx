@@ -1,31 +1,20 @@
 "use client";
 
-import { ClientRow } from "../components/client-row";
-import { EmployeeRow } from "../components/employee-row";
+import { Separator } from "@/components/ui/separator";
+import { CalendarClientBlock } from "../components/block/client-block";
+import { CalendarEmployeeBlock } from "../components/block/employee-block";
 import { useCalendar } from "../provider";
 
 export function CalendarEmployeeView() {
   const { currentDate, shifts, activeClient } = useCalendar();
   return (
     <>
-      <ClientRow
-        currentMonth={currentDate}
-        shifts={shifts}
-      />
+      {activeClient && <CalendarClientBlock client={activeClient} />}
+      <Separator className="mt-4" />
       {activeClient?.team.map((team) => (
         <div className="mt-3 grid gap-y-3" key={team.id}>
-          {team.employees
-            ?.sort((a, b) => {
-              if (a.firstname < b.firstname) {
-                return -1;
-              }
-              if (a.firstname > b.firstname) {
-                return 1;
-              }
-              return 0;
-            })
-            .map((employee) => (
-              <EmployeeRow
+          {team.employees.map((employee) => (
+              <CalendarEmployeeBlock
                 activeClient={activeClient}
                 employee={employee}
                 currentMonth={currentDate}
