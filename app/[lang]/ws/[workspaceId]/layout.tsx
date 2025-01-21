@@ -1,11 +1,9 @@
-import {
-  SidebarProvider
-} from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/components/workspace-sidebar/workspace-sidebar";
 import { WorkspaceSidebarInset } from "@/components/workspace-sidebar/workspace-sidebar-inset";
 import { getWorkspaces } from "@/lib/data/workspace";
-import { PlannerProvider } from "@/provider";
-import { WorkspaceProvider } from "@/provider/workspace-provider";
+import { createClient } from "@/lib/supabase/server";
+import { PlannerProvider, WorkspaceProvider } from "@/provider";
 import { redirect } from "next/navigation";
 
 export default async function Layout({
@@ -26,8 +24,16 @@ export default async function Layout({
     return redirect("/ws");
   }
 
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error) {
+    console.error("Error fetching user", error);
+  }
+
   return (
     <WorkspaceProvider
+      user={data.user!}
       workspaces={workspaces}
       activeWorkspace={activeWorkspace}
     >

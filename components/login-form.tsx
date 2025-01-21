@@ -1,30 +1,39 @@
 "use client";
 
-import { login } from "@/app/auth/login/actions";
+import { login } from "@/app/[lang]/auth/login/actions";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { Locales } from "@/middleware";
+import { useParams } from "next/navigation";
 
 export function LoginForm({
+  dict,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+}: React.ComponentPropsWithoutRef<"div"> & {
+  dict: typeof import("../dictionaries/de.json");
+}) {
+  const { lang } = useParams();
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="p-2 bg-card/55 backdrop-blur backdrop-saturate-150 shadow-xl rounded-2xl">
         <Card className="shadow border">
           <CardHeader className="text-center">
-            <CardTitle className="text-xl">Welcome back</CardTitle>
+            <CardTitle className="text-xl">
+              {dict.auth.login.headline}
+            </CardTitle>
             <CardDescription>
-              Login with your Apple or Google account
+              {dict.auth.login.descriptionOAuth}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -61,7 +70,7 @@ export function LoginForm({
                 </div>
                 <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                   <span className="relative z-10 bg-background px-2 text-muted-foreground">
-                    Or continue with
+                    {dict.auth.login.separator}
                   </span>
                 </div>
                 <div className="grid gap-6">
@@ -82,7 +91,7 @@ export function LoginForm({
                         href="#"
                         className="ml-auto text-sm underline-offset-4 hover:underline"
                       >
-                        Forgot your password?
+                        {dict.auth.login.forgotPassword}
                       </a>
                     </div>
                     <Input
@@ -92,8 +101,12 @@ export function LoginForm({
                       required
                     />
                   </div>
-                  <Button type="submit" formAction={login} className="w-full">
-                    Login
+                  <Button
+                    type="submit"
+                    formAction={(formData) => login(formData, lang as Locales)}
+                    className="w-full"
+                  >
+                    {dict.auth.login.cta}
                   </Button>
                 </div>
                 {/* <div className="text-center text-sm">

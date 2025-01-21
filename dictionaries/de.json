@@ -1,0 +1,27 @@
+{
+  "workspace": {
+    "registeredAs": "Angemeldet als",
+    "title": "Neuen VitalSync-Workspace erstellen",
+    "description": "VitalSync gibt deinem Team ein Zuhause – einen Ort, an dem alle miteinander reden und zusammenarbeiten können. Klicke auf den Button unten, um einen neuen Workspace zu erstellen.",
+    "cta": "Workspace erstellen",
+    "title2": "Einen Workspace öffnen",
+    "workspaceOf": "Workspaces von",
+    "prompts": {
+      "workspaceName": "Wie lautet der Name deines Unternehmens oder Teams?",
+      "workspaceDescription": "Das wird der Name deines Slack-Workspace sein.",
+      "workspacePlaceholder": "z.B. der Ort, die Straße oder der Name des Klienten",
+      "workspaceCTA": "Workspace anlegen",
+      "workspaceType": "Art des Workspaces",
+      "workspaceOpen": "Öffnen"
+    }
+  },
+  "auth": {
+    "login": {
+      "headline": "Willkommen zurück",
+      "descriptionOAuth": "Verwende deinen Apple oder Google account",
+      "separator": "Oder verwende",
+      "forgotPassword": "Passwort vergessen?",
+      "cta": "Anmelden"
+    }
+  }
+}

@@ -4,8 +4,9 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
+import { Locales } from "@/middleware";
 
-export async function login(formData: FormData) {
+export async function login(formData: FormData, lang: Locales) {
   const supabase = await createClient();
 
   // type-casting here for convenience
@@ -22,8 +23,8 @@ export async function login(formData: FormData) {
     redirect("/error");
   }
 
-  revalidatePath("/ws", "layout");
-  redirect("/ws");
+  revalidatePath(`/${lang}/ws`, "layout");
+  redirect(`/${lang}/ws`);
 }
 
 export async function signup(formData: FormData) {

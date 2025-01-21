@@ -1,13 +1,22 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Logo } from "@/components/ui/logo";
 import { getWorkspaces } from "@/lib/data/workspace";
 import { createClient } from "@/lib/supabase/server";
+import { Locales } from "@/middleware";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { getDictionary } from "../dictionarios";
 
-export default async function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ lang: Locales }>;
+}) {
+  const { lang } = await params;
   const supabase = await createClient();
+
+  const dict = await getDictionary(lang);
 
   const {
     data: { user },
@@ -17,25 +26,29 @@ export default async function Page() {
 
   return (
     <div className="bg-muted">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto pb-6">
         <div className="flex items-center justify-center flex-col gap-4 py-12">
           <Logo />
           <div className="rounded-full bg-background py-1 px-4 text-sm">
-            Angemeldet als{" "}
+            {dict.workspace.registeredAs}{" "}
             <span className="underline font-bold">{user?.email}</span>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-x-2">
           <div>
             <h1 className="text-5xl font-semibold leading-snug mb-6">
-              Neuen {process.env.APP_NAME}-Workspace erstellen
+              {/* Neuen {process.env.APP_NAME}-Workspace erstellen */}
+              {dict.workspace.title}
             </h1>
             <p className="leading-loose text-lg mb-6">
-              {process.env.APP_NAME} gibt deinem Team ein Zuhause – einen Ort,
+              {/* {process.env.APP_NAME} gibt deinem Team ein Zuhause – einen Ort,
               an dem alle miteinander reden und zusammenarbeiten können. Klicke
-              auf den Button unten, um einen neuen Workspace zu erstellen.
+              auf den Button unten, um einen neuen Workspace zu erstellen. */}
+              {dict.workspace.description}
             </p>
-            <Button>Workspace erstellen</Button>
+            <Link href="/ws/create" className={buttonVariants()}>
+              {dict.workspace.cta}
+            </Link>
           </div>
           <div className="flex items-center justify-center">
             <svg
@@ -531,36 +544,44 @@ export default async function Page() {
         </div>
       </div>
 
-      <div className="bg-background py-20 relative mt-12">
+      <div className="bg-background py-16 relative mt-12">
         <div className="flex items-center justify-center absolute inset-x-0 -top-10">
           <div className="w-20 aspect-square rounded-full bg-background flex items-center justify-center">
             <p>ODER</p>
           </div>
         </div>
+        <h3 className="text-center mb-6 font-bold text-lg">
+          {dict.workspace.title2}
+        </h3>
         <div className="bg-background max-w-2xl mx-auto border shadow rounded-sm">
-          <div className="p-4 border-b">
+          <div className="p-4">
             <h2 className="">
-              Workspaces von <strong>{user?.email}</strong>
+              {dict.workspace.workspaceOf} <strong>{user?.email}</strong>
             </h2>
           </div>
           {workspaces.map((workspace) => (
             <Link
               href={`/ws/${workspace.id}`}
-              className="px-4 py-8 flex items-center justify-between hover:bg-muted"
+              className="group p-6 border-t flex items-center justify-between hover:bg-muted"
               key={workspace.id}
             >
-              <div className="flex items-center gap-2">
-                <Avatar className="h-8 w-8 rounded-lg">
+              <div className="flex items-center gap-3">
+                <Avatar className="h-10 w-10 rounded-lg border ">
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div>
-                  <h3 className="font-bold leading-none">
+                  <h3 className="font-bold leading-none mb-1">
                     {workspace.workspace_name}
                   </h3>
-                  <p className="text-sm">{workspace.workspaceType?.name}</p>
+                  <p className="text-xs">{workspace.workspaceType?.name}</p>
                 </div>
               </div>
-              <ArrowRight className="h-6 w-6" />
+              <div className="group-hover:translate-x-2 group-hover:opacity-60 transition-transform duration-300 flex items-center gap-2">
+                <p className="text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {dict.workspace.prompts.workspaceOpen}
+                </p>
+                <ArrowRight className="h-6 w-6" />
+              </div>
             </Link>
           ))}
         </div>

@@ -2,7 +2,7 @@ import { PlannerEmployeeView } from "@/components/planner/views/planner-employee
 import { getClientByUUID } from "@/lib/data/clients";
 
 interface PageProps {
-  params: Promise<{ clientId: string }>;
+  params: Promise<{ clientId: string; lang: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -20,8 +20,6 @@ export default async function Page({ params }: PageProps) {
   if (!clientId) {
     return null;
   }
-
-  // const { data: activeClient } = await getClientByUUID(clientId);
 
   return (
     <div className="pb-4">
