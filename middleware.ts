@@ -18,11 +18,15 @@ function getLocale(request: NextRequest) {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  if (pathname.includes("/favicon") || pathname.includes("manifest")) {
+    return NextResponse.next();
+  }
+
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
-  if (pathnameHasLocale || pathname.includes("/favicon") || pathname.includes("manifest")) return updateSession(request);
+  if (pathnameHasLocale) return updateSession(request);
 
   // Redirect if there is no locale
   const locale = getLocale(request);
