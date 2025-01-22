@@ -3,7 +3,7 @@ import { updateSession } from "@/lib/supabase/middleware";
 import Negotiator from "negotiator";
 import { match } from "@formatjs/intl-localematcher";
 
-const locales = ["en", "de"] as const;
+const locales = ["de-DE", "de", "en-US", "en"] as const;
 
 export type Locales = (typeof locales)[number];
 
@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
-  if (pathnameHasLocale) return updateSession(request);
+  if (pathnameHasLocale || pathname.includes("/favicon") || pathname.includes("manifest")) return updateSession(request);
 
   // Redirect if there is no locale
   const locale = getLocale(request);

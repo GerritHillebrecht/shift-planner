@@ -12,9 +12,9 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { getWorkspaceTypes } from "@/lib/data/workspace";
 import { Locales } from "@/middleware";
-import { getDictionary } from "../../dictionarios";
 import heroImage from "@/public/images/hero_drawn_workspace.svg";
 import Image from "next/image";
+import { getDictionary } from "../../dictionarios";
 
 export default async function Page({
   params,
@@ -67,7 +67,7 @@ export default async function Page({
             </Button>
           </form>
         </div>
-        <div className="relative flex items-center justify-center bg-lime-400">
+        <div className="relative flex items-center justify-center">
           <Image className="w-2/3" src={heroImage} alt="Hero image" />
         </div>
       </div>

@@ -45,12 +45,13 @@ export function Planner({ className, children }: PlannerProps) {
       )}
       <PlannerContainer className={className}>
         {activeClient && (
-          <div>
-            <h1 className="text-3xl">{activeClient.firstname}</h1>
-            <p className="mb-4">{activeClient.lastname}</p>
+          <div className="mt-4">
+            <h1 className="block text-base leading-none tracking-[-0.5px] font-light uppercase opacity-50">
+              {activeClient.firstname} {activeClient.lastname}
+            </h1>
           </div>
         )}
-        <PlannerToolbar />
+        <PlannerToolbar className="mb-6" />
         {children}
       </PlannerContainer>
     </>

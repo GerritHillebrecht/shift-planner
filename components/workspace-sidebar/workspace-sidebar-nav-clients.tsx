@@ -47,7 +47,7 @@ export function NavClients() {
                 <SidebarMenuSub>
                   <SidebarMenuSubItem>
                     <SidebarMenuSubButton asChild>
-                      <a href={team.id}>
+                      <a href={client.id}>
                         <span>Dienstplan</span>
                       </a>
                     </SidebarMenuSubButton>

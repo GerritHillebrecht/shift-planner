@@ -11,6 +11,6 @@ export function PlannerContainer({
   children,
 }: PlannerContainerProps) {
   return (
-    <div className={cn("grid gap-3 print:gap-1", className)}>{children} </div>
+    <div className={cn("", className)}>{children} </div>
   );
 }

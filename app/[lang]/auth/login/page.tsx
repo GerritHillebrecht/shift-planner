@@ -1,4 +1,4 @@
-import { LoginForm } from "@/components/login-form";
+import { LoginForm } from "@/components/forms/auth/login/login-form";
 import heroImage from "@/public/images/hero-bg-image-3.jpg";
 import Image from "next/image";
 

@@ -1,17 +1,17 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { cn } from "@/lib/utils";
 import { Employee, ServiceRequirement } from "@/models";
-import dayjs from "dayjs";
-import { Info, Loader } from "lucide-react";
-import { useState } from "react";
 import { usePlanner } from "@/provider";
+import dayjs from "dayjs";
+import { CalendarIcon, Info, Loader } from "lucide-react";
+import { useState } from "react";
 import { handleDateClick } from "../utils/handlers";
 
 interface PlannerDayEmployeeFieldProps {
@@ -36,9 +36,10 @@ export function PlannerDayEmployeeField({
   const startOfDay = currentDate.startOf("day");
   const endOfDay = currentDate.endOf("day");
 
-  const isDateInShifts = shifts.some(
+  const isDateInShifts = shifts.find(
     ({ date, requirement_id, employee_id }) => {
       const shiftDate = dayjs(date);
+
       return (
         shiftDate > startOfDay &&
         shiftDate < endOfDay &&
@@ -55,6 +56,7 @@ export function PlannerDayEmployeeField({
   const isRequirementFullfilled = shifts.find(
     ({ date, requirement_id, employee_id }) => {
       const currentDate = dayjs(date);
+
       return (
         requirement_id == serviceRequirement.id &&
         employee_id != employee.id &&
@@ -66,6 +68,7 @@ export function PlannerDayEmployeeField({
 
   const isShiftInDay = shifts.find(({ date, employee_id }) => {
     const currentDate = dayjs(date);
+
     return (
       employee_id === employee.id &&
       currentDate > startOfDay &&
@@ -96,40 +99,85 @@ export function PlannerDayEmployeeField({
       )}
     >
       {isDateInShifts && (
-        <img
-          className="h-4 w-4 dark:invert"
-          src={serviceRequirement.icon || ""}
-          alt={serviceRequirement.service_name}
-        />
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <img
+              className="h-4 w-4 dark:invert"
+              src={serviceRequirement.icon || ""}
+              alt={serviceRequirement.service_name}
+            />
+          </HoverCardTrigger>
+          <HoverCardContent className="w-80">
+            <div className="flex justify-between space-x-4">
+              <Avatar>
+                <AvatarImage />
+                <AvatarFallback>
+                  {isDateInShifts.employee?.firstname[0]}
+                  {isDateInShifts.employee?.lastname?.[0]}
+                </AvatarFallback>
+              </Avatar>
+              <div className="space-y-1 min-w-full">
+                <h4 className="text-sm font-semibold">
+                  {isDateInShifts.employee?.firstname}{" "}
+                  {isDateInShifts.employee?.lastname}
+                </h4>
+                <p className="text-sm">
+                  {serviceRequirement.service_name} bei{" "}
+                  {activeClient?.firstname} {activeClient?.lastname}
+                  {/* The React Framework – created and maintained by @vercel. */}
+                </p>
+                <div className="flex items-center pt-2">
+                  <CalendarIcon className="mr-2 h-4 w-4 opacity-70" />{" "}
+                  <span className="text-xs text-muted-foreground">
+                    {dayjs(isDateInShifts.date).format("DD.MM.YYYY")}{" "}
+                    {isDateInShifts.start_time} - {isDateInShifts.end_time}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </HoverCardContent>
+        </HoverCard>
       )}
       {loading && <Loader className="h-3 w-3 animate-spin" />}
       {(isShiftInDay || isRequirementFullfilled) &&
         isActiveDay &&
         !isDateInShifts && (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Info className="h-3 w-3 opacity-20 print:hidden" />
-              </TooltipTrigger>
-              <TooltipContent>
-                <ul>
-                  {isRequirementFullfilled && (
-                    <li>
-                      <span>Dieser Dienst ist bereits besetzt</span>
-                    </li>
-                  )}
-                  {isShiftInDay && (
-                    <li>
-                      <span>
-                        {employee.firstname} wird an diesem Tag bereits bei{" "}
-                        {isShiftInDay.client?.firstname} eingesetzt
-                      </span>
-                    </li>
-                  )}
-                </ul>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <Info className="h-3 w-3 opacity-20 print:hidden" />
+            </HoverCardTrigger>
+            <HoverCardContent className="w-80">
+              <div className="flex justify-between space-x-4">
+                <Avatar>
+                  <AvatarImage />
+                  <AvatarFallback>
+                    {isShiftInDay?.employee?.firstname[0]}
+                    {isShiftInDay?.employee?.lastname?.[0]}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="space-y-1">
+                  <h4 className="text-sm font-semibold">
+                    Für diese Schicht kann für {employee.firstname}{" "} kein Dienst vergeben werden
+                  </h4>
+                  <ol className="list-disc list-inside">
+                    {isRequirementFullfilled && (
+                      <li>
+                        <span className="text-xs">{serviceRequirement.service_name} ist bereits besetzt</span>
+                      </li>
+                    )}
+                    {isShiftInDay && (
+                      <li>
+                        <span className="text-xs">
+                          {employee.firstname} wird an diesem Tag bereits bei{" "}
+                          {isShiftInDay.client?.firstname} eingesetzt
+                        </span>
+                      </li>
+                    )}
+                  </ol>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
         )}
     </div>
   );

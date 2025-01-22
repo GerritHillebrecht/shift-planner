@@ -20,7 +20,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div"> & {
-  dict: typeof import("../dictionaries/de.json");
+  dict: typeof import("../../../../dictionaries/de.json");
 }) {
   const { lang } = useParams();
 

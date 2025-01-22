@@ -22,6 +22,7 @@ import { ModeToggle } from "../ui/theme-selector";
 import { Planner } from "../planner/planner";
 import { ReactNode } from "react";
 import Link from "next/link";
+import { FullscreenToggle } from "../ui/fullscreen-selector";
 
 export function WorkspaceSidebarInset({ children }: { children: ReactNode }) {
   const { clients, activeClient } = usePlanner();
@@ -29,7 +30,7 @@ export function WorkspaceSidebarInset({ children }: { children: ReactNode }) {
 
   return (
     <SidebarInset>
-      <header className="flex justify-between pr-6 h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+      <header className="flex justify-between pr-4 h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
         <div className="flex items-center gap-x-2 px-4 print:hidden">
           <SidebarTrigger />
           <Separator orientation="vertical" className="mr-2 h-4" />
@@ -44,7 +45,10 @@ export function WorkspaceSidebarInset({ children }: { children: ReactNode }) {
                   <DropdownMenuContent align="start">
                     <DropdownMenuItem>
                       <BreadcrumbLink asChild>
-                        <Link replace={false} href={`/ws/${activeWorkspace?.id}`}>
+                        <Link
+                          replace={false}
+                          href={`/ws/${activeWorkspace?.id}`}
+                        >
                           Übersicht
                         </Link>
                       </BreadcrumbLink>
@@ -74,7 +78,10 @@ export function WorkspaceSidebarInset({ children }: { children: ReactNode }) {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <ModeToggle />
+        <div className="flex items-center gap-x-2">
+          <FullscreenToggle />
+          <ModeToggle />
+        </div>
       </header>
       <main className="w-full px-4">
         <Planner>{children}</Planner>

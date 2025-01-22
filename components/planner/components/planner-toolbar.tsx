@@ -10,8 +10,11 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { usePlanner } from "@/provider";
 import dayjs, { Dayjs, ManipulateType } from "dayjs";
+import { useParams } from "next/navigation";
 
-export function PlannerToolbar() {
+export function PlannerToolbar({ className }: { className?: string }) {
+  const { lang } = useParams();
+
   const {
     startDate,
     currentDate,
@@ -29,7 +32,7 @@ export function PlannerToolbar() {
 
   useEffect(() => {
     setFormattedDate(
-      currentDate.toLocaleString("de-DE", {
+      currentDate.toLocaleString(lang, {
         month: "long",
         year: "numeric",
       })
@@ -43,8 +46,8 @@ export function PlannerToolbar() {
   };
 
   return (
-    <div className="flex justify-between items-center">
-      <p className="text-2xl">{formattedDate}</p>
+    <div className={cn("flex justify-between items-center", className)}>
+      <p className="text-5xl font-black">{formattedDate}</p>
       <div className="flex space-x-1 print:hidden">
         <Popover>
           <PopoverTrigger asChild>
