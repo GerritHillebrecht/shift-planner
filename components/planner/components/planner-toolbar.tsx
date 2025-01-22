@@ -15,29 +15,21 @@ import { useParams } from "next/navigation";
 export function PlannerToolbar({ className }: { className?: string }) {
   const { lang } = useParams();
 
-  const {
-    startDate,
-    currentDate,
-    setCurrentDate,
-    setStartDate,
-    setEndDate,
-    selectedView,
-  } = usePlanner();
+  const { startDate, setCurrentDate, setStartDate, setEndDate, selectedView } =
+    usePlanner();
   const [formattedDate, setFormattedDate] = useState(
-    currentDate.toLocaleString("de-DE", {
+    startDate.toLocaleString(lang, {
       month: "long",
-      year: "numeric",
     })
   );
 
   useEffect(() => {
     setFormattedDate(
-      currentDate.toLocaleString(lang, {
+      startDate.toLocaleString(lang, {
         month: "long",
-        year: "numeric",
       })
     );
-  }, [currentDate]);
+  }, [startDate]);
 
   const handleMonthChange = (date: Dayjs) => {
     setStartDate(date.startOf("month").toDate());
@@ -47,7 +39,12 @@ export function PlannerToolbar({ className }: { className?: string }) {
 
   return (
     <div className={cn("flex justify-between items-center", className)}>
-      <p className="text-5xl font-black">{formattedDate}</p>
+      <div>
+        <p className="text-5xl font-black">{formattedDate}</p>
+        <p className="block text-base leading-none tracking-[-0.5px] font-light uppercase opacity-50">
+          {startDate.getFullYear()}
+        </p>
+      </div>
       <div className="flex space-x-1 print:hidden">
         <Popover>
           <PopoverTrigger asChild>
@@ -55,7 +52,7 @@ export function PlannerToolbar({ className }: { className?: string }) {
               variant={"outline"}
               className={cn(
                 "justify-start text-left font-normal px-3",
-                !currentDate && "text-muted-foreground"
+                !startDate && "text-muted-foreground"
               )}
             >
               <CalendarIcon />
@@ -64,13 +61,12 @@ export function PlannerToolbar({ className }: { className?: string }) {
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
               mode="single"
-              selected={currentDate}
+              selected={startDate}
               onSelect={(date) => {
-                setCurrentDate(
-                  date
-                    ? new Date(date.getFullYear(), date.getMonth() + 1, 0)
-                    : currentDate
-                );
+                if (!date) return;
+                setStartDate(dayjs(date).startOf("month").toDate());
+                setEndDate(dayjs(date).endOf("month").toDate());
+                setCurrentDate(date);
               }}
               initialFocus
             />

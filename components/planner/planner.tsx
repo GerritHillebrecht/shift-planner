@@ -51,7 +51,7 @@ export function Planner({ className, children }: PlannerProps) {
             </h1>
           </div>
         )}
-        <PlannerToolbar className="mb-6" />
+        <PlannerToolbar className="my-6" />
         {children}
       </PlannerContainer>
     </>
