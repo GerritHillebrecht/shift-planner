@@ -15,6 +15,7 @@ import {
 import { AdminSidebar } from "../../components/workspace-sidebar/workspace-sidebar";
 import { getWorkspaces } from "@/lib/data/workspace";
 import { WorkspaceProvider } from "../../provider/workspace-provider";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function Layout({
   children,
@@ -23,8 +24,15 @@ export default async function Layout({
 }) {
   const workspaces = await getWorkspaces();
 
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error) {
+    console.error("Error fetching user", error);
+  }
+
   return (
-    <WorkspaceProvider workspaces={workspaces} activeWorkspace={workspaces[0]}>
+    <WorkspaceProvider user={data.user!} workspaces={workspaces} activeWorkspace={workspaces[0]}>
       <SidebarProvider>
         <AdminSidebar />
         <SidebarInset>
