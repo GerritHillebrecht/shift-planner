@@ -23,10 +23,7 @@ import { usePlanner } from "@/provider";
 import dayjs from "dayjs";
 import { CalendarIcon, Info, Loader } from "lucide-react";
 import { useState } from "react";
-import {
-  handleAddShift,
-  handleDeleteActiveShift
-} from "../utils/handlers";
+import { handleAddShift, handleDeleteActiveShift } from "../utils/handlers";
 import { PlannerShiftSheet } from "./planner-shift-sheet";
 
 interface PlannerDayEmployeeFieldProps {
@@ -171,23 +168,25 @@ export function PlannerDayEmployeeField({
                 {isDateInShifts.employee?.firstname}
               </SheetDescription>
             </SheetHeader>
-            <PlannerShiftSheet shift={isDateInShifts} />
-            <SheetFooter>
-              <SheetClose asChild>
-                <div className="grid grid-cols-2 gap-x-2 w-full items-center">
-                  <Button
-                    onClick={() =>
-                      handleDeleteActiveShift(isDateInShifts.id, setLoading)
-                    }
-                    variant="outline"
-                    color="warn"
-                  >
-                    Delete Shift
-                  </Button>
-                  <Button type="submit">Save changes</Button>
-                </div>
-              </SheetClose>
-            </SheetFooter>
+            <form>
+              <PlannerShiftSheet shift={isDateInShifts} />
+              <SheetFooter>
+                <SheetClose asChild>
+                  <div className="grid grid-cols-2 gap-x-2 w-full items-center">
+                    <Button
+                      onClick={() =>
+                        handleDeleteActiveShift(isDateInShifts.id, setLoading)
+                      }
+                      variant="outline"
+                      color="warn"
+                    >
+                      Delete Shift
+                    </Button>
+                    <Button type="submit">Save changes</Button>
+                  </div>
+                </SheetClose>
+              </SheetFooter>
+            </form>
           </SheetContent>
         </Sheet>
       )}
