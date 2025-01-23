@@ -18,12 +18,12 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import { usePlanner } from "@/provider";
 import { UserResponse } from "@supabase/supabase-js";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { ClientSwitcher } from "./app-sidebar-client-switcher";
 import { AppSidebarFooter } from "./app-siderbar-footer";
-import { usePlanner } from "@/provider";
 import {
   Collapsible,
   CollapsibleContent,

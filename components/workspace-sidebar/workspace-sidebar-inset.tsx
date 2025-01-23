@@ -1,7 +1,10 @@
 "use client";
 
-import { ChevronDown, ChevronRight } from "lucide-react";
 import { usePlanner, useWorkspace } from "@/provider";
+import { ChevronDown, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { ReactNode } from "react";
+import { Planner } from "../planner/planner";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,13 +19,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { FullscreenToggle } from "../ui/fullscreen-selector";
 import { Separator } from "../ui/separator";
 import { SidebarInset, SidebarTrigger } from "../ui/sidebar";
 import { ModeToggle } from "../ui/theme-selector";
-import { Planner } from "../planner/planner";
-import { ReactNode } from "react";
-import Link from "next/link";
-import { FullscreenToggle } from "../ui/fullscreen-selector";
 
 export function WorkspaceSidebarInset({ children }: { children: ReactNode }) {
   const { clients, activeClient } = usePlanner();
@@ -45,10 +45,7 @@ export function WorkspaceSidebarInset({ children }: { children: ReactNode }) {
                   <DropdownMenuContent align="start">
                     <DropdownMenuItem>
                       <BreadcrumbLink asChild>
-                        <Link
-                          replace={false}
-                          href={`/ws/${activeWorkspace?.id}`}
-                        >
+                        <Link href={`/ws/${activeWorkspace?.id}`}>
                           Übersicht
                         </Link>
                       </BreadcrumbLink>
@@ -58,7 +55,6 @@ export function WorkspaceSidebarInset({ children }: { children: ReactNode }) {
                       <DropdownMenuItem key={client.id}>
                         <BreadcrumbLink asChild>
                           <Link
-                            replace={false}
                             href={`/ws/${activeWorkspace?.id}/${client.id}`}
                           >
                             {client.firstname} {client.lastname}

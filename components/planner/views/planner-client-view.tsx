@@ -12,7 +12,7 @@ export function PlannerClientView() {
   return (
     <div className="grid gap-4">
       {clients?.map((client) => (
-        <Link replace={false} href={`/ws/${activeWorkspace!.id}/${client.id}`} key={client.id}>
+        <Link href={`/ws/${activeWorkspace!.id}/${client.id}`} key={client.id}>
           <PlannerClientBlock client={client} />
         </Link>
       ))}

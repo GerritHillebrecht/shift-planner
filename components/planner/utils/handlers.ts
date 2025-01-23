@@ -44,6 +44,17 @@ export async function handleAddShift({
   setLoading(false);
 }
 
+export async function handleDeleteActiveShift(
+  shiftId: Shift["id"],
+  setLoading: (loading: boolean) => void
+) {
+  if (confirm("Are you sure you want to delete this shift?")) {
+    setLoading(true);
+    await deleteShift(shiftId);
+    setLoading(false);
+  }
+}
+
 export async function handleDeleteShift(args: HandleDateClickProps) {
   const { shifts, employee, currentDate, serviceRequirement, setLoading } =
     args;

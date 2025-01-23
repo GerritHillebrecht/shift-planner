@@ -7,7 +7,7 @@ import {
   Map,
   PieChart,
   Settings2,
-  SquareTerminal
+  SquareTerminal,
 } from "lucide-react";
 import * as React from "react";
 
@@ -18,12 +18,12 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { NavClients } from "./workspace-sidebar-nav-clients";
 import { NavMain } from "./workspace-sidebar-nav-main";
+import { NavWorkspace } from "./workspace-sidebar-nav-workspace";
 import { NavProjects } from "./workspace-sidebar-projects";
 import { NavUser } from "./workspace-sidebar-user";
 import { TeamSwitcher } from "./workspace-sidebar-workspace-switcher";
-import { NavClients } from "./workspace-sidebar-nav-clients";
-import { NavWorkspace } from "./workspace-sidebar-nav-workspace";
 
 // This is sample data.
 const data = {

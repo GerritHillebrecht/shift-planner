@@ -46,19 +46,14 @@ export function AppSidebarInset({ children }: { children: ReactNode }) {
                   <DropdownMenuContent align="start">
                     <DropdownMenuItem>
                       <BreadcrumbLink asChild>
-                        <Link replace={false} href={`/ws/${workspaceId}`}>
-                          Übersicht
-                        </Link>
+                        <Link href={`/ws/${workspaceId}`}>Übersicht</Link>
                       </BreadcrumbLink>
                     </DropdownMenuItem>
                     <Separator />
                     {clients?.map((client) => (
                       <DropdownMenuItem key={client.id}>
                         <BreadcrumbLink asChild>
-                          <Link
-                            replace={false}
-                            href={`/calendar/client/${client.id}`}
-                          >
+                          <Link href={`/calendar/client/${client.id}`}>
                             {client.firstname} {client.lastname}
                           </Link>
                         </BreadcrumbLink>
