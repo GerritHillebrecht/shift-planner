@@ -160,7 +160,7 @@ export function PlannerDayEmployeeField({
               </HoverCard>
             </div>
           </SheetTrigger>
-          <SheetContent>
+          <SheetContent className="w-full sm:w-3/4 max-w-full sm:max-w-sm">
             <SheetHeader>
               <SheetTitle>Edit Shift</SheetTitle>
               <SheetDescription>
