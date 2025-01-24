@@ -1,5 +1,5 @@
 import { PlannerEmployeeView } from "@/components/planner/views/planner-employee-view";
-import { getClientByUUID } from "@/lib/data/clients";
+import { getClientByUUID } from "@/lib/data-access/clients";
 
 interface PageProps {
   params: Promise<{ clientId: string }>;

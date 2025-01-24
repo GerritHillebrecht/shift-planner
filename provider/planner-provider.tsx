@@ -1,7 +1,7 @@
 "use client";
 
-import { getAllClients } from "@/lib/data/clients";
-import { getShifts } from "@/lib/data/shifts";
+import { getAllClients } from "@/lib/data-access/clients";
+import { getShifts } from "@/lib/data-access/shifts";
 import { createClient } from "@/lib/supabase/client";
 import { Client, Shift } from "@/models";
 import dayjs from "dayjs";

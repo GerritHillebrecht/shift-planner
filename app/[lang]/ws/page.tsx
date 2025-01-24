@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { buttonVariants } from "@/components/ui/button";
 import { Logo } from "@/components/ui/logo";
-import { getWorkspaces } from "@/lib/data/workspace";
+import { getWorkspaces } from "@/lib/data-access/workspace";
 import { createClient } from "@/lib/supabase/server";
 import { Locales } from "@/middleware";
 import { ArrowRight } from "lucide-react";
@@ -37,13 +37,9 @@ export default async function Page({
         <div className="grid grid-cols-2 gap-x-2">
           <div>
             <h1 className="text-5xl font-semibold leading-snug mb-6">
-              {/* Neuen {process.env.APP_NAME}-Workspace erstellen */}
               {dict.workspace.title}
             </h1>
             <p className="leading-loose text-lg mb-6">
-              {/* {process.env.APP_NAME} gibt deinem Team ein Zuhause – einen Ort,
-              an dem alle miteinander reden und zusammenarbeiten können. Klicke
-              auf den Button unten, um einen neuen Workspace zu erstellen. */}
               {dict.workspace.description}
             </p>
             <Link href="/ws/create" className={buttonVariants()}>

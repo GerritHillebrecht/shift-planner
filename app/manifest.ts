@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${process.env.APP_NAME}`,
-    short_name: `${process.env.APP_NAME}`,
+    name: `${process.env.NEXT_PUBLIC_APP_NAME}`,
+    short_name: `${process.env.NEXT_PUBLIC_APP_NAME}`,
     description: "Manage shifts in the health sector with ease",
     start_url: "/",
     display: "standalone",

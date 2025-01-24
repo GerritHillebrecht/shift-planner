@@ -6,16 +6,16 @@ const dmSerifDisplay = DM_Serif_Display({
   weight: ["400"],
 });
 
-export function Logo({ className }: { className?: string }) {
+export function Logo({ className, classNames }: { className?: string, classNames?: string }) {
   return (
-    <h3 className="">
+    <h3 className={className}>
       <span
         className={cn(
           `font-bold opacity-90 text-3xl ${dmSerifDisplay.className}`,
-          className
+          classNames
         )}
       >
-        {process.env.APP_NAME}
+        {process.env.NEXT_PUBLIC_APP_NAME}
       </span>
     </h3>
   );

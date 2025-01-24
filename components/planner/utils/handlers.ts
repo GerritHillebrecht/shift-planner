@@ -1,4 +1,4 @@
-import { AddShift, deleteShift } from "@/lib/data/shifts";
+import { AddShift, deleteShift } from "@/lib/data-access/shifts";
 import { Client, Employee, ServiceRequirement, Shift } from "@/models";
 import dayjs, { type Dayjs } from "dayjs";
 import { toast } from "sonner";

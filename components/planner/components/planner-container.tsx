@@ -10,7 +10,5 @@ export function PlannerContainer({
   className,
   children,
 }: PlannerContainerProps) {
-  return (
-    <div className={cn("", className)}>{children} </div>
-  );
+  return <div className={cn("", className)}>{children} </div>;
 }

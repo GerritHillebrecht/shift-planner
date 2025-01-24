@@ -4,7 +4,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { AddShift, deleteShift } from "@/lib/data/shifts";
+import { AddShift, deleteShift } from "@/lib/data-access/shifts";
 import { cn } from "@/lib/utils";
 import { Client } from "@/models/clients";
 import { Employee } from "@/models/employees";

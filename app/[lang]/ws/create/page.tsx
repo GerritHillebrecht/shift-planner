@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { getWorkspaceTypes } from "@/lib/data/workspace";
+import { getWorkspaceTypes } from "@/lib/data-access/workspace";
 import { Locales } from "@/middleware";
 import heroImage from "@/public/images/hero_drawn_workspace.svg";
 import Image from "next/image";

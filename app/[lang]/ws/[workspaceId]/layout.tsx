@@ -1,7 +1,7 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/components/workspace-sidebar/workspace-sidebar";
 import { WorkspaceSidebarInset } from "@/components/workspace-sidebar/workspace-sidebar-inset";
-import { getWorkspaces } from "@/lib/data/workspace";
+import { getWorkspaces } from "@/lib/data-access/workspace";
 import { createClient } from "@/lib/supabase/server";
 import { PlannerProvider, WorkspaceProvider } from "@/provider";
 import { redirect } from "next/navigation";

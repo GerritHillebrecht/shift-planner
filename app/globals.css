@@ -16,6 +16,11 @@ body {
   navigation: auto;
 }
 
+::selection {
+  @apply text-foreground;
+  @apply bg-primary;
+}
+
 @media print {
   body {
     width: 100%;

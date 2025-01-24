@@ -1,4 +1,4 @@
-import { getClientByUUID } from "@/lib/data/clients";
+import { getClientByUUID } from "@/lib/data-access/clients";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 

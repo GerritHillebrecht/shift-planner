@@ -1,7 +1,7 @@
-import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
-import Negotiator from "negotiator";
 import { match } from "@formatjs/intl-localematcher";
+import Negotiator from "negotiator";
+import { NextResponse, type NextRequest } from "next/server";
 
 const locales = ["de-DE", "de", "en-US", "en"] as const;
 
