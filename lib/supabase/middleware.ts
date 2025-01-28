@@ -42,7 +42,7 @@ export async function updateSession(request: NextRequest) {
   if (!user && request.nextUrl.pathname.includes("/ws")) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
-    url.pathname = "/auth/login";
+    url.pathname = "/landing";
     return NextResponse.redirect(url);
   }
 

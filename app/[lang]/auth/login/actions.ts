@@ -4,9 +4,11 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
-import { Locales } from "@/middleware";
 
-export async function login(formData: FormData, lang: Locales) {
+export async function login(
+  prevState: { message: string },
+  formData: FormData
+) {
   const supabase = await createClient();
 
   // type-casting here for convenience
@@ -19,12 +21,11 @@ export async function login(formData: FormData, lang: Locales) {
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    console.error(error);
-    redirect("/error");
+    return { message: error.message };
   }
 
-  revalidatePath(`/${lang}/ws`, "layout");
-  redirect(`/${lang}/ws`);
+  revalidatePath(`/`, "layout");
+  redirect("/ws");
 }
 
 export async function signup(formData: FormData) {

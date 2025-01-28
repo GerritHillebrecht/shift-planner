@@ -14,7 +14,7 @@ import { getWorkspaceTypes } from "@/lib/data-access/workspace";
 import { Locales } from "@/middleware";
 import heroImage from "@/public/images/hero_drawn_workspace.svg";
 import Image from "next/image";
-import { getDictionary } from "../../dictionarios";
+import { getDictionary } from "../../dictionaries";
 
 export default async function Page({
   params,

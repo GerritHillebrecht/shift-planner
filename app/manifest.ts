@@ -25,14 +25,14 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
     screenshots: [
       {
-        src: "/favicon/Screenshot_vitalSync.png",
+        src: "/screenshots/Screenshot_vitalSync.png",
         sizes: "1080x796",
         type: "image/png",
         form_factor: "wide",
         label: "Shift-Manager",
       },
       {
-        src: "/favicon/Screenshot_vitalSync_iPad.png",
+        src: "/screenshots/Screenshot_vitalSync_iPad.png",
         sizes: "880x1173",
         type: "image/png",
         form_factor: "narrow",

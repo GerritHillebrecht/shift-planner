@@ -167,6 +167,78 @@ export type Database = {
           },
         ]
       }
+      shiftServices: {
+        Row: {
+          created_at: string
+          end_time: string
+          id: string
+          service_name: string
+          shift_service_type_id: string
+          start_time: string
+          weekdays: string
+          workspace_id: string
+        }
+        Insert: {
+          created_at?: string
+          end_time: string
+          id?: string
+          service_name: string
+          shift_service_type_id: string
+          start_time: string
+          weekdays: string
+          workspace_id: string
+        }
+        Update: {
+          created_at?: string
+          end_time?: string
+          id?: string
+          service_name?: string
+          shift_service_type_id?: string
+          start_time?: string
+          weekdays?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shiftServices_shift_service_type_id_fkey"
+            columns: ["shift_service_type_id"]
+            isOneToOne: false
+            referencedRelation: "shiftServiceType"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shiftServices_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspace"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      shiftServiceType: {
+        Row: {
+          created_at: string
+          end_time: string
+          id: string
+          start_time: string
+          type_name: string
+        }
+        Insert: {
+          created_at?: string
+          end_time: string
+          id?: string
+          start_time: string
+          type_name: string
+        }
+        Update: {
+          created_at?: string
+          end_time?: string
+          id?: string
+          start_time?: string
+          type_name?: string
+        }
+        Relationships: []
+      }
       teammembers: {
         Row: {
           created_at: string
@@ -234,26 +306,59 @@ export type Database = {
           created_at: string
           id: string
           workspace_name: string
-          workspace_type: string
+          workspace_type_id: string
         }
         Insert: {
           created_at?: string
           id?: string
           workspace_name: string
-          workspace_type: string
+          workspace_type_id: string
         }
         Update: {
           created_at?: string
           id?: string
           workspace_name?: string
-          workspace_type?: string
+          workspace_type_id?: string
         }
         Relationships: [
           {
             foreignKeyName: "workspace_workspace_type_fkey"
-            columns: ["workspace_type"]
+            columns: ["workspace_type_id"]
             isOneToOne: false
             referencedRelation: "workspaceTypes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workspaceTeam: {
+        Row: {
+          created_at: string
+          employee_id: string
+          workspace_id: string
+        }
+        Insert: {
+          created_at?: string
+          employee_id: string
+          workspace_id: string
+        }
+        Update: {
+          created_at?: string
+          employee_id?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workspace_team_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "workspace_team_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspace"
             referencedColumns: ["id"]
           },
         ]

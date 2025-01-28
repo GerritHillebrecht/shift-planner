@@ -122,7 +122,7 @@ export function PlannerDayEmployeeField({
               <HoverCard>
                 <HoverCardTrigger asChild>
                   <img
-                    className="h-4 w-4 dark:invert"
+                    className="h-4 w-4"
                     src={serviceRequirement.icon || ""}
                     alt={serviceRequirement.service_name}
                   />

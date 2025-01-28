@@ -4,6 +4,15 @@ import React, { forwardRef, useRef } from "react";
 
 import { AnimatedBeam } from "@/components/ui/animated-beam";
 import { cn } from "@/lib/utils";
+import Logo from "@/public/favicon/web-app-manifest-512x512.png";
+import { CalendarIcon } from "lucide-react";
+import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "../ui/hover-card";
 import { SparklesCore } from "../ui/sparkles";
 
 const Circle = forwardRef<
@@ -25,6 +34,25 @@ const Circle = forwardRef<
 
 Circle.displayName = "Circle";
 
+const Square = forwardRef<
+  HTMLDivElement,
+  { className?: string; children?: React.ReactNode }
+>(({ className, children }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "z-10 flex size-12 items-center justify-center rounded-xl border-2 border-border bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+});
+
+Square.displayName = "Square";
+
 export function AnimatedBeamMultipleOutputDemo({
   className,
 }: {
@@ -41,21 +69,26 @@ export function AnimatedBeamMultipleOutputDemo({
 
   return (
     <section className="relative py-20 md:shadow-inner dark:bg-black">
-                <div
-          className="absolute inset-0 opacity-70"
-          style={{
-            backgroundImage:
-              "url('https://vite.dev/noise.png'), radial-gradient(circle at right center, #563277, #4a378c 30%, #4172c2 55%, #32517380)",
-            backgroundSize: "auto, auto",
-            backgroundPosition: "4%, 0%",
-            top: "-60%",
-            bottom: "-60%",
-            zIndex: 5,
-            pointerEvents: "none",
-            maskImage:
-              "radial-gradient(ellipse 300% 30% at center center, #000 20%, #00000080 50%, #0000)",
-          }}
-        />
+      <div
+        className="absolute inset-0 opacity-70"
+        style={{
+          backgroundImage:
+            "url('https://vite.dev/noise.png'), radial-gradient(circle at right center, #563277, #4a378c 30%, #4172c2 55%, #32517380)",
+          backgroundSize: "auto, auto",
+          backgroundPositionX: "0%, 0%",
+          backgroundPositionY: "0%, 0%",
+          backgroundRepeat: "repeat, repeat",
+          backgroundClip: "border-box, border-box",
+          backgroundAttachment: "scroll, scroll",
+          top: "-60%",
+          bottom: "-60%",
+          zIndex: 5,
+          pointerEvents: "none",
+          backgroundOrigin: "padding-box, padding-box",
+          maskImage:
+            "radial-gradient(ellipse 300% 30% at center center, #000 20%, #00000080 50%, #0000)",
+        }}
+      />
       <h3 className="text-4xl text-center md:text-7xl font-black">Product</h3>
       <div className="w-[40rem] -mb-36 mx-auto h-40 relative">
         <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
@@ -100,9 +133,36 @@ export function AnimatedBeamMultipleOutputDemo({
             </Circle>
           </div>
           <div className="flex flex-col justify-center">
-            <Circle ref={div6Ref} className="size-16">
-              <Icons.openai />
-            </Circle>
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Square
+                  ref={div6Ref}
+                  className="size-28 rounded-2xl shadow-[0_30px_35px_-10px_#0009] border-0"
+                >
+                  <Image src={Logo} alt="logo" />
+                </Square>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80">
+                <div className="flex justify-between space-x-4">
+                  <Avatar>
+                    <AvatarImage src="https://github.com/vercel.png" />
+                    <AvatarFallback>VC</AvatarFallback>
+                  </Avatar>
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-semibold">@nextjs</h4>
+                    <p className="text-sm">
+                      The React Framework – created and maintained by @vercel.
+                    </p>
+                    <div className="flex items-center pt-2">
+                      <CalendarIcon className="mr-2 h-4 w-4 opacity-70" />{" "}
+                      <span className="text-xs text-muted-foreground">
+                        Joined December 2021
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
           </div>
           <div className="flex flex-col justify-center">
             <Circle ref={div7Ref}>

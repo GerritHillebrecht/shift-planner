@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Locales } from "@/middleware";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { getDictionary } from "../dictionarios";
+import { getDictionary } from "../dictionaries";
 
 export default async function Page({
   params,
